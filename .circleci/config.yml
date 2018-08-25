@@ -10,7 +10,7 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            apk add --update openssl xxd
+            apk add --update openssl
             yarn install --silent
       - run:
           name: Authenticate with Salesforce
