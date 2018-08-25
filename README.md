@@ -126,7 +126,7 @@ Adds exception data to the log. Will add the message, type, stack trace and line
 
 ## Extending the logger
 
-Everyone has their own way of handling logs in Salesforce. If you need logs handled in a custom way, you can override the `flush()` method. Let's say each log needs to be sent to an HTTP endpoint. You can implement a new logger that extends `ForceLog.Logger` and will create an HTTP request on every log written (**Note:** this is not best practice, just an example).
+Everyone has their own way of handling logs in Salesforce. If you need logs handled in a custom way, you can override the `flush()` method. Let's say each log needs to be sent to an HTTP endpoint. You can implement a new logger that extends `ForceLog.Logger` and will create an HTTP request on every log written (**Note:** this is not best practice, just an example). By default, the logger will JSON-encode logs and write them to the debugger using `System.debug()`.
 
 ```apex
 public class CalloutLogger extends ForceLog.Logger {
