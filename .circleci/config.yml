@@ -9,7 +9,9 @@ jobs:
       - checkout
       - run:
           name: Install dependencies
-          command: yarn install --silent
+          command: |
+            apk add --update openssl
+            yarn install --silent
       - run:
           name: Authenticate with Salesforce
           command: |
