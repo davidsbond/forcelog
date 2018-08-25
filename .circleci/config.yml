@@ -16,9 +16,7 @@ jobs:
           name: Authenticate with Salesforce
           command: |
             mkdir .sfdx
-            echo $SFDC_KEY | xxd >> .sfdx/deploy.key.enc
-            openssl enc -nosalt -aes-256-cbc -d -in .sfdx/deploy.key.enc -out .sfdx/deploy.key -base64 -K $DECRYPTION_KEY -iv $DECRYPTION_IV
-            openssl rsa -in .sfdx/deploy.key -check -noout
+            echo $SFDC_KEY | .sfdx/deploy.key
             yarn run auth
       - run:
           name: Create deployment package
