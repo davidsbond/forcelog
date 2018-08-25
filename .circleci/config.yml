@@ -8,11 +8,12 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install dependencies,
-          command: yarn install
+          name: Install dependencies
+          command: yarn install --silent
       - run:
           name: Authenticate with Salesforce
           command: |
+            mkdir .sfdx
             echo $SFDC_KEY | xxd -r -ps >> .sfdx/deploy.key.enc
             openssl enc -nosalt -aes-256-cbc -d -in .sfdx/deploy.key.enc -out .sfdx/deploy.key -base64 -K $DECRYPTION_KEY -iv $DECRYPTION_IV
             openssl rsa -in .sfdx/deploy.key -check -noout
