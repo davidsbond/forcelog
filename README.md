@@ -130,18 +130,41 @@ Everyone has their own way of handling logs in Salesforce. If you need logs hand
 
 ```apex
 public class CalloutLogger extends ForceLog.Logger {
+    /**
+     * @description The HTTP endpoint to send requests to
+     * @type {String}
+     */
     private String endpoint;
 
+    /**
+     * @description The HTTP client to use for making requests
+     * @type {Http}
+     */
     private Http client;
 
+    /**
+     * @description Initializes a new instance of the CalloutLogger class
+     * @param {String} name The log name, should be a class or method name.
+     * @param {String} endpoint The endpoint to send HTTP requests to.
+     * @constructor
+     */
     public CalloutLogger(String name, String endpoint) {
+        // Initialize the parent class using the name.
         super(name);
+
         this.endpoint = endpoint;
         this.client = new Http();
     }
 
+    /**
+     * @description Creates an HTTP POST request containing
+     * the JSON-encoded log as the body.
+     * @param {Map<String, Object>} log The log data
+     * @returns {void}
+     */
     public override void flush(Map<String, Object> log) {
         HttpRequest req = new HttpRequest();
+
         req.setEndpoint(this.endpoint);
         req.setMethod('POST');
         req.setBody(JSON.serialize(log));
