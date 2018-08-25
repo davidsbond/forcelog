@@ -1,6 +1,6 @@
 # ForceLog
 
-ForceLog is a structured logger for Salesforce Apex that is extendable to suit various log formats and providers.
+ForceLog is a structured logger for Salesforce Apex that is extensible to suit various log formats and providers.
 
 ## Example
 
@@ -27,7 +27,9 @@ public String getContactNameById(String id) {
 }
 ```
 
-## Logging methods
+## ForceLog.Logger methods
+
+Below are all methods exposed by the `ForceLog.Logger` class.
 
 ### void debug(String message)
 
