@@ -144,7 +144,7 @@ global with sharing class ForceLog {
          * @param {Object} value The field's value
          * @throws {InvalidParameterException} Exception is thrown when reserved field
          * names are used.
-         * @return {LOgger} The current instance of the logger, for method chaining.
+         * @return {Logger} The current instance of the logger, for method chaining.
          */
         public Logger withField(String name, Object value) {
             // Throw a ReservedFieldException if trying to use a reserved field name.
