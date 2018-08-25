@@ -1,0 +1,11 @@
+{
+  "packageDirectories": [
+    {
+      "path": "src",
+      "default": true
+    }
+  ],
+  "namespace": "forcelog",
+  "sfdcLoginUrl": "https://login.salesforce.com",
+  "sourceApiVersion": "43.0"
+}
