@@ -162,7 +162,7 @@ public class CalloutLogger extends ForceLog.Logger {
      * @description Creates an HTTP POST request containing
      * the JSON-encoded log as the body.
      * @param {Map<String, Object>} log The log data
-     * @returns {void}
+     * @return {void}
      */
     public override void flush(Map<String, Object> log) {
         HttpRequest req = new HttpRequest();

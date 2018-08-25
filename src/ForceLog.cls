@@ -64,7 +64,7 @@ global with sharing class ForceLog {
          * @description Creates a debug log containing
          * the given message.
          * @param {String} message The debug message
-         * @returns {void}
+         * @return {void}
          */
         public void debug(String message) {
             this.logLevel = level.DEBUG;
@@ -75,7 +75,7 @@ global with sharing class ForceLog {
          * @description Creates an info log containing
          * the given message.
          * @param {String} message The info message
-         * @returns {void}
+         * @return {void}
          */
         public void info(String message) {
             this.logLevel = Level.INFO;
@@ -86,7 +86,7 @@ global with sharing class ForceLog {
          * @description Creates a warning log containing
          * the given message.
          * @param {String} message The warning message
-         * @returns {void}
+         * @return {void}
          */
         public void warning(String message) {
             this.logLevel = Level.WARNING;
@@ -97,7 +97,7 @@ global with sharing class ForceLog {
          * @description Creates an error log containing
          * the given message.
          * @param {String} message The error message
-         * @returns {void}
+         * @return {void}
          */
         public void error(String message) {
             this.logLevel = Level.ERROR;
@@ -108,7 +108,7 @@ global with sharing class ForceLog {
          * @description Creates a panic log containing
          * the given message.
          * @param {String} message The panic message
-         * @returns {void}
+         * @return {void}
          */
         public void panic(String message) {
             this.logLevel = Level.PANIC;
@@ -119,7 +119,7 @@ global with sharing class ForceLog {
          * @description Default implementation of flush(). Writes the
          * JSON serialized logs to the debugger.
          * @param {Map<String, Object>} log The log data represented as a map.
-         * @returns {void}
+         * @return {void}
          */ 
         public virtual void flush(Map<String, Object> log) {
             System.debug(JSON.serialize(log));
@@ -128,7 +128,7 @@ global with sharing class ForceLog {
         /**
          * @description Adds multiple fields to the log
          * @param {Map<String, Object>} fields The fields to log
-         * @returns {Logger} The current instance of the logger, for method chaining.
+         * @return {Logger} The current instance of the logger, for method chaining.
          */
         public Logger withFields(Map<String, Object> fields) {
             for (String key : fields.keySet()) {
@@ -144,7 +144,7 @@ global with sharing class ForceLog {
          * @param {Object} value The field's value
          * @throws {InvalidParameterException} Exception is thrown when reserved field
          * names are used.
-         * @returns {LOgger} The current instance of the logger, for method chaining.
+         * @return {LOgger} The current instance of the logger, for method chaining.
          */
         public Logger withField(String name, Object value) {
             // Throw a ReservedFieldException if trying to use a reserved field name.
@@ -182,7 +182,7 @@ global with sharing class ForceLog {
          * @description Adds exception data to the log
          * @param {Exception} ex The exception to log, traverses the cause
          * of each exception to log the root cause of any exception.
-         * @returns {Logger} The current instance of the logger, for method chaining.
+         * @return {Logger} The current instance of the logger, for method chaining.
          */
         public Logger withException(Exception ex) {
             // If the exception wraps another, use the wrapped one
@@ -205,7 +205,7 @@ global with sharing class ForceLog {
          * and exception details. This map is then passed to the
          * provided implementation of the flush() method.
          * @param {String} message The log message
-         * @returns {void}
+         * @return {void}
          */
         private void write(String message) {
             // Create map containing default logging fields.

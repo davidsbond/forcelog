@@ -166,7 +166,7 @@ private class ForceLogTest {
          * when producing logs.
          * @param {String} key The field name
          * @param {Object} value The expected value
-         * @returns {void}
+         * @return {void}
          */
         public void expect(String key, Object value) {
             this.expectedFields.put(key, value);
@@ -176,7 +176,7 @@ private class ForceLogTest {
          * @description Implements the flush() method, checks that values in
          * the expected map exist and match those in the log payload
          * @param {Map<String, Object>} log The log payload
-         * @returns {void}
+         * @return {void}
          */
         public override void flush(Map<String, Object> log) {
             for (String expKey : this.expectedFields.keySet()) {
