@@ -106,7 +106,7 @@ Adds multiple fields to the log. Will throw a `ReservedFieldException` when usin
 
  log.withFields(new Map<String, Object> {
      'id' => '12345',
-     'name' => 'John Smith'
+     'contact' => 'John Smith'
  }).info('got contact');
 ```
 
