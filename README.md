@@ -53,7 +53,7 @@ Writes an `info` log containing the provided message.
 
 ### void warning(String message)
 
-Writes an `warning` log containing the provided message.
+Writes a `warning` log containing the provided message.
 
 ```apex
  ForceLog.Logger log = new ForceLog.Logger('myClassName');
@@ -73,7 +73,7 @@ Writes an `error` log containing the provided message.
 
 ### void panic(String message)
 
-Writes an `panic` log containing the provided message.
+Writes a `panic` log containing the provided message.
 
 ```apex
  ForceLog.Logger log = new ForceLog.Logger('myClassName');
