@@ -1,0 +1,18 @@
+{
+  "name": "forcelog",
+  "version": "1.0.0",
+  "description": "A structured, extensible logger for Salesforce Apex",
+  "main": "index.js",
+  "repository": "git@github.com:davidsbond/forcelog.git",
+  "author": "David Bond <david@david-bond.net>",
+  "license": "MIT",
+  "private": false,
+  "devDependencies": {
+    "sfdx-cli": "^6.29.0"
+  },
+  "scripts": {
+    "convert": "sfdx force:source:convert -d .sfdx/deployment -n ForceLog",
+    "deploy": "sfdx force:mdapi:deploy -d .sfdx/deployment -w -1 --verbose --testlevel RunLocalTests",
+    "auth": "sfdx force:auth:jwt:grant --jwtkeyfile .sfdx/deploy.key --setdefaultdevhubusername --clientid $SFDC_CLIENT_ID --username $SFDC_USERNAME -a default"
+  }
+}

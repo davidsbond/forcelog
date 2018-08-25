@@ -1,0 +1,25 @@
+version: 2
+
+jobs:
+  build:
+    docker:
+      - image: node:alpine
+    working_directory: /forcelog
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies,
+          command: yarn install
+      - run:
+          name: Authenticate with Salesforce
+          command: |
+            echo $SFDC_KEY | xxd -r -ps >> .sfdx/deploy.key.enc
+            openssl enc -nosalt -aes-256-cbc -d -in .sfdx/deploy.key.enc -out .sfdx/deploy.key -base64 -K $DECRYPTION_KEY -iv $DECRYPTION_IV
+            openssl rsa -in .sfdx/deploy.key -check -noout
+            yarn run auth
+      - run:
+          name: Create deployment package
+          command: yarn run convert
+      - run:
+          name: Deploy and run tests
+          command: yarn run deploy
