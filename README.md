@@ -2,6 +2,8 @@
 
 ForceLog is a structured logger for Salesforce Apex that is extensible to suit various log formats and providers.
 
+[![CircleCI](https://circleci.com/gh/davidsbond/forcelog/tree/master.svg?style=shield)](https://circleci.com/gh/davidsbond/forcelog/tree/master)
+
 ## Example
 
 ```apex
