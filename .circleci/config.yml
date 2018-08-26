@@ -16,7 +16,7 @@ jobs:
           name: Authenticate with Salesforce
           command: |
             mkdir .sfdx
-            echo $SFDC_KEY | .sfdx/deploy.key
+            echo $SFDC_KEY > .sfdx/deploy.key
             yarn run auth
       - run:
           name: Create deployment package
