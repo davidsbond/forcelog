@@ -3,3 +3,4 @@ metadataPackage_*/
 node_modules/
 *.pem
 *.pem.*
+.vscode/

@@ -12,7 +12,7 @@
   },
   "scripts": {
     "convert": "sfdx force:source:convert -d .sfdx/deployment -n ForceLog",
-    "deploy": "sfdx force:mdapi:deploy -d .sfdx/deployment -w -1 --verbose --testlevel RunLocalTests",
+    "deploy": "sfdx force:mdapi:deploy -d .sfdx/deployment -w -1 -l RunSpecifiedTests -r ForceLogTest",
     "auth": "sfdx force:auth:jwt:grant --jwtkeyfile .sfdx/deploy.key --setdefaultusername --clientid $SFDC_CLIENT_ID --username $SFDC_USERNAME -a default"
   }
 }
