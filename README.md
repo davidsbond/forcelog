@@ -161,7 +161,7 @@ Adds exception data to the log. Will add the message, type, stack trace and line
 Triggers the implementation of the `bulkFlush()` method when using `ForceLog.BulkLogger`.
 
 ```apex
- ForceLog.Logger log = new ForceLog.Logger('myClassName');
+ ForceLog.Logger log = new ForceLog.BulkLogger('myClassName');
 
  log.info('trying something');
 
