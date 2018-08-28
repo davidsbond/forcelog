@@ -24,8 +24,9 @@ global with sharing class ForceLog {
     }
 
     /**
-     * @description The logger class is responsible for producing structured
-     * JSON logs
+     * @description The Logger class is responsible for producing structured
+     * logs and will execute the `flush()` method every time a write method
+     * is used (debug, info, warning, error, panic)
      */
     public abstract class Logger {
 
@@ -121,7 +122,7 @@ global with sharing class ForceLog {
          * @param {Map<String, Object>} log The log data represented as a map.
          * @return {void}
          */ 
-        public virtual void flush(Map<String, Object> log) {
+        protected virtual void flush(Map<String, Object> log) {
             System.debug(JSON.serialize(log));
         }
 
@@ -230,6 +231,60 @@ global with sharing class ForceLog {
             this.fields.remove('exception_stack_trace');
             this.fields.remove('exception_line_number');
             this.fields.remove('exception_type');
+        }
+    }
+
+    /**
+     * @description The BulkLogger class is responsible for producing structured
+     * logs and will execute the `bulkFlush()` method when `dispose()` is called.
+     */
+    public abstract class BulkLogger extends Logger {
+        /**
+         * @description The logs stored by the logger
+         * @type {List<Map<String, Object>>}
+         */
+        private List<Map<String, Object>> logs;
+
+        /**
+         * @description Initializes a new instance of the BulkLogger class using
+         * the provided name.
+         * @param {String} name The log name. Should be a method or class name.
+         * @constructor
+         */
+        public BulkLogger(String name) {
+            super(name);
+            this.logs = new List<Map<String, Object>>();
+        }
+
+        /**
+         * @description Used when the logger is no longer requires, passes all
+         * logs to the `bulkFlush()` method.
+         * @return {void}
+         */
+        public void dispose() {
+            this.bulkFlush(this.logs);
+        }
+
+        /**
+         * @description Method executed when a log is produced, adds the log to
+         * the list of all logs so far.
+         * @param {Map<String, Object>} log The log data
+         * @return {void}
+         */
+        protected override void flush(Map<String, Object> log) {
+            this.logs.add(log);
+        }
+
+        /**
+         * @description Default implementation of bulkFlush(). Writes the
+         * JSON serialized logs to the debugger.
+         * @param {List<Map<String, Object>>} logs The list of log data
+         * @return {void}
+         */ 
+        protected virtual void bulkFlush(List<Map<String, Object>> logs) {
+            for (Map<String, Object> log : logs) {
+                System.debug(JSON.serialize(log));
+            }
         }
     }
 }

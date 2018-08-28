@@ -134,6 +134,23 @@ private class ForceLogTest {
         }
     }
 
+    @isTest
+    private static void itShouldProduceBulkLogs() {
+        TestBulkLogger logger = new TestBulkLogger('test');
+
+        logger.expect('level', 'info');
+        logger.expect('message', 'test');
+        logger.expect('timestamp', '*');
+        logger.expect('name', 'test');
+
+        logger.info('test');
+        logger.info('test');
+        logger.info('test');
+        logger.info('test');
+
+        logger.dispose();
+    }
+
     /**
      * @description Basic exception for use in tests.
      */
@@ -146,6 +163,12 @@ private class ForceLogTest {
      */
     private class TestLogger extends ForceLog.Logger {
         /**
+         * @description The fields the logger is expected to output
+         * @type {Map<String, Object>}
+         */
+        private Map<String, Object> expectedFields;
+
+        /**
          * @description Initializes a new instance of the TestLogger class.
          * @param {String} name The name of the log
          * @constructor
@@ -154,12 +177,6 @@ private class ForceLogTest {
             super(name);
             this.expectedFields = new Map<String, Object>();
         }
-
-        /**
-         * @description The fields the logger is expected to output
-         * @type {Map<String, Object>}
-         */
-        private Map<String, Object> expectedFields;
 
         /**
          * @description Creates an expectation that must be satisfied
@@ -192,6 +209,60 @@ private class ForceLogTest {
                 }
 
                 System.assertEquals(expVal, actVal);
+            }
+        }
+    }
+
+    private class TestBulkLogger extends ForceLog.BulkLogger {
+        /**
+         * @description The fields the logger is expected to output
+         * @type {Map<String, Object>}
+         */
+        private Map<String, Object> expectedFields;
+
+        /**
+         * @description Initializes a new instance of the TestBulkLogger class.
+         * @param {String} name The name of the log
+         * @constructor
+         */
+        public TestBulkLogger(String name) {
+            super(name);
+            this.expectedFields = new Map<String, Object>();
+        }
+
+        /**
+         * @description Creates an expectation that must be satisfied
+         * when producing logs.
+         * @param {String} key The field name
+         * @param {Object} value The expected value
+         * @return {void}
+         */
+        public void expect(String key, Object value) {
+            this.expectedFields.put(key, value);
+        }
+
+        /**
+         * @description Implements the bulkFlush() method, checks that values in
+         * the expected map exist and match those in the log payloads
+         * @param {List<Map<String, Object>>} log The log payloads
+         * @return {void}
+         */
+        protected override void bulkFlush(List<Map<String, Object>> logs) {
+            for (Map<String, Object> log : logs) {
+                for (String expKey : this.expectedFields.keySet()) {
+                    // Get the expected and actual values and compare.
+                    Object actVal = log.get(expKey);
+                    Object expVal = this.expectedFields.get(expKey);
+
+                    // If we only care about the field existing, ensure
+                    // it is not null.
+                    if (expVal == '*') {
+                        System.assertNotEquals(null, actVal);
+                        return;
+                    }
+
+                    System.assertEquals(expVal, actVal);
+                }
             }
         }
     }
