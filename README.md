@@ -1,10 +1,10 @@
 # ForceLog
 
-ForceLog is a structured logger for Salesforce Apex that is extensible to suit various log formats and providers.
+ForceLog is a structured logger for Salesforce Apex that is extensible to suit various log formats and providers. It provides two loggers, `ForceLog.Logger` (for handling logs on an individual level) and `ForceLog.BulkLogger` (for handling logs in bulk).
 
 [![CircleCI](https://circleci.com/gh/davidsbond/forcelog/tree/master.svg?style=shield)](https://circleci.com/gh/davidsbond/forcelog/tree/master)
 
-## Example
+## ForceLog.Logger Example
 
 ```apex
 private ForceLog.Logger log = new ForceLog.Logger('myClassName');
@@ -29,7 +29,35 @@ public String getContactNameById(String id) {
 }
 ```
 
-## ForceLog.Logger methods
+## ForceLog.BulkLogger Example
+
+```apex
+private ForceLog.Logger log = new ForceLog.BulkLogger('myClassName');
+
+public String getContactNameById(String id) {
+    log.withField('id', id).info('querying contact');
+
+    String name;
+    try {
+        Contact c = [
+            SELECT Name
+            FROM Contact
+            WHERE ID =: id
+        ];
+
+        log.withField('contactName', c.Name).info('queried contact');
+
+        name = c.Name;
+    } catch(QueryException ex) {
+        log.withException(ex).error('failed to query contact');
+    }
+
+    log.dispose();
+    return name;
+}
+```
+
+## Logging methods
 
 Below are all methods exposed by the `ForceLog.Logger` class.
 
@@ -128,12 +156,30 @@ Adds exception data to the log. Will add the message, type, stack trace and line
  }
 ```
 
-## Extending the logger
+### void dispose()
 
-Everyone has their own way of handling logs in Salesforce. If you need logs handled in a custom way, you can override the `flush()` method. Let's say each log needs to be sent to an HTTP endpoint. You can implement a new logger that extends `ForceLog.Logger` and will create an HTTP request on every log written (**Note:** this is not best practice, just an example). By default, the logger will JSON-encode logs and write them to the debugger using `System.debug()`.
+Triggers the implementation of the `bulkFlush()` method when using `ForceLog.BulkLogger`.
 
 ```apex
-public class CalloutLogger extends ForceLog.Logger {
+ ForceLog.Logger log = new ForceLog.Logger('myClassName');
+
+ log.info('trying something');
+
+ try {
+     // ...
+ } catch(Exception ex) {
+    log.withException(ex).error('uh oh!');
+ }
+
+ log.dispose();
+```
+
+## Extending the logger
+
+Everyone has their own way of handling logs in Salesforce. If you need logs handled in a custom way, you can override the `flush()` method in `ForceLog.Logger` or the `bulkFlush()` method in `ForceLog.BulkLogger`. Let's say each log needs to be sent to an HTTP endpoint. You can implement a new logger that extends `ForceLog.BulkLogger` and will create an HTTP request containing all logs. By default, the logger will JSON-encode logs and write them to the debugger using `System.debug()`.
+
+```apex
+public class CalloutLogger extends ForceLog.BulkLogger {
     /**
      * @description The HTTP endpoint to send requests to
      * @type {String}
@@ -162,16 +208,16 @@ public class CalloutLogger extends ForceLog.Logger {
 
     /**
      * @description Creates an HTTP POST request containing
-     * the JSON-encoded log as the body.
-     * @param {Map<String, Object>} log The log data
+     * the JSON-encoded logs as the body.
+     * @param {List<Map<String, Object>>} logs The log data
      * @return {void}
      */
-    public override void flush(Map<String, Object> log) {
+    protected override void bulkFlush(List<Map<String, Object>> logs) {
         HttpRequest req = new HttpRequest();
 
         req.setEndpoint(this.endpoint);
         req.setMethod('POST');
-        req.setBody(JSON.serialize(log));
+        req.setBody(JSON.serialize(logs));
 
         this.client.send(req);
     }
