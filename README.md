@@ -2,7 +2,7 @@
 
 ForceLog is a structured logger for Salesforce Apex that is extensible to suit various log formats and providers. It provides two loggers, `ForceLog.Logger` (for handling logs on an individual level) and `ForceLog.BulkLogger` (for handling logs in bulk).
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![CircleCI](https://circleci.com/gh/davidsbond/forcelog/tree/master.svg?style=shield)](https://circleci.com/gh/davidsbond/forcelog/tree/master)
 
 ## ForceLog.Logger Example
