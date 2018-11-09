@@ -143,6 +143,42 @@ Adds multiple fields to the log. Will throw a `ReservedFieldException` when usin
  }).info('got contact');
 ```
 
+### ForceLog.Logger withSObject(String key, SObject obj)
+
+Adds SObject data to the log under a specified key.
+
+```apex
+ ForceLog.Logger log = new ForceLog.Logger('myClassName');
+
+ Contact c = new Contact(
+    FirstName = 'tester',
+    LastName = 'mctest',
+    Email = 'test@test.com'
+ );
+
+ insert c;
+
+ logger.withSObject('sobject', c).info('inserted contact');
+```
+
+### ForceLog.Logger withSObject(String key, SObject obj, Set<String> excludeFields)
+
+Adds SObject data to the log under a specified key and excludes all fields contained within the 'excludeFields' parameter.
+
+```apex
+ ForceLog.Logger log = new ForceLog.Logger('myClassName');
+
+ Contact c = new Contact(
+    FirstName = 'tester',
+    LastName = 'mctest',
+    Email = 'test@test.com'
+ );
+
+ insert c;
+
+ logger.withSObject('sobject', c, new Set<String> { 'Email' }).info('inserted contact');
+```
+
 ### ForceLog.Logger withException(Exception ex)
 
 Adds exception data to the log. Will add the message, type, stack trace and line number to the logging output. If the exception has a cause these will be recursively added under the `exception_cause` field.

@@ -209,7 +209,7 @@ global with sharing class ForceLog {
                 key => values
             };
 
-            this.fields.putAll(entry);
+            this.withFields(values);
             return this;
         }
 
@@ -239,7 +239,7 @@ global with sharing class ForceLog {
                 key => output
             };
 
-            this.fields.putAll(entry);
+            this.withFields(output);
             return this;
         }
 
