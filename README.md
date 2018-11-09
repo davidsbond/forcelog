@@ -123,6 +123,8 @@ Adds a field to the log with the specified value. Will throw a `ReservedFieldExc
 * `exception_stack_trace`
 * `exception_line_number`
 * `exception_cause`
+* `request`
+* `response`
 
 ```apex
  ForceLog.Logger log = new ForceLog.Logger('myClassName');
