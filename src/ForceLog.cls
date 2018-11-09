@@ -204,9 +204,8 @@ global with sharing class ForceLog {
          * @return {Logger} The current instance of the logger, for method chaining.
          */
         public Logger withSObject(String key, SObject obj) {
-            Map<String, Object> values = obj.getPopulatedFieldsAsMap();
             Map<String, Object> entry = new Map<String, Object> {
-                key => values
+                key => obj.getPopulatedFieldsAsMap()
             };
 
             this.withFields(entry);
@@ -223,20 +222,19 @@ global with sharing class ForceLog {
          * @return {Logger} The current instance of the logger, for method chaining.
          */
         public Logger withSObject(String key, SObject obj, Set<String> excludeFields) {
-            Map<String, Object> values = obj.getPopulatedFieldsAsMap();
-            Map<String, Object> output = new Map<String, Object>();
+            Map<String, Object> values = new Map<String, Object>();
 
             // Remove any fields from the map that are excluded.
-            for (String field : values.keySet()) {
+            for (String field : obj.getPopulatedFieldsAsMap().keySet()) {
                 if (excludeFields.contains(field)) {
                     continue;
                 }
 
-                output.put(field, values.get(field));
+                values.put(field, values.get(field));
             }
 
             Map<String, Object> entry = new Map<String, Object> {
-                key => output
+                key => values
             };
 
             this.withFields(entry);
