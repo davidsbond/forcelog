@@ -122,6 +122,7 @@ Adds a field to the log with the specified value. Will throw a `ReservedFieldExc
 * `exception_type`
 * `exception_stack_trace`
 * `exception_line_number`
+* `exception_cause`
 
 ```apex
  ForceLog.Logger log = new ForceLog.Logger('myClassName');
@@ -144,7 +145,7 @@ Adds multiple fields to the log. Will throw a `ReservedFieldException` when usin
 
 ### ForceLog.Logger withException(Exception ex)
 
-Adds exception data to the log. Will add the message, type, stack trace and line number to the logging output.
+Adds exception data to the log. Will add the message, type, stack trace and line number to the logging output. If the exception has a cause these will be recursively added under the `exception_cause` field.
 
 ```apex
  ForceLog.Logger log = new ForceLog.Logger('myClassName');

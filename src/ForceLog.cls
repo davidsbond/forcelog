@@ -196,21 +196,6 @@ global with sharing class ForceLog {
         }
 
         /**
-         * @description Gets the fields to log from an exception, recursivly traverses the cause(s)
-         * @param {Exception} ex The exception to get fields from
-         * @return {Map<String, Object>} The fields to log from the exception
-         */
-        private Map<String, Object> getExceptionFields(Exception ex) {
-            return new Map<String, Object> {
-                'exception_message' => ex.getMessage(),
-                'exception_stack_trace' => ex.getStackTraceString(),
-                'exception_line_number' => ex.getLineNumber(),
-                'exception_type' => ex.getTypeName(),
-                'exception_cause' => ex.getCause() != null ? getExceptionFields(ex.getCause()) : null
-            };
-        }
-
-        /**
          * @description Converts the log into an instance of
          * Map<String, Object> containing all provided fields
          * and exception details. This map is then passed to the
@@ -295,5 +280,20 @@ global with sharing class ForceLog {
                 System.debug(JSON.serialize(log));
             }
         }
+    }
+
+    /**
+     * @description Gets the fields to log from an exception, recursivly traverses the cause(s)
+     * @param {Exception} ex The exception to get fields from
+     * @return {Map<String, Object>} The fields to log from the exception
+     */
+    private static Map<String, Object> getExceptionFields(Exception ex) {
+        return new Map<String, Object> {
+            'exception_message' => ex.getMessage(),
+            'exception_stack_trace' => ex.getStackTraceString(),
+            'exception_line_number' => ex.getLineNumber(),
+            'exception_type' => ex.getTypeName(),
+            'exception_cause' => ex.getCause() != null ? getExceptionFields(ex.getCause()) : null
+        };
     }
 }
