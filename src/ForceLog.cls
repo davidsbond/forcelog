@@ -186,18 +186,25 @@ global with sharing class ForceLog {
          * @return {Logger} The current instance of the logger, for method chaining.
          */
         public Logger withException(Exception ex) {
-            // If the exception wraps another, use the wrapped one
-            if (ex.getCause() != null) {
-                return this.withException(ex.getCause());
-            }
-
             // Add exception details to the log fields.
-            this.fields.put('exception_message', ex.getMessage());
-            this.fields.put('exception_stack_trace', ex.getStackTraceString());
-            this.fields.put('exception_line_number', ex.getLineNumber());
-            this.fields.put('exception_type', ex.getTypeName());
+            this.fields.putAll(getExceptionFields(ex));
 
             return this;
+        }
+
+        /**
+         * @description Adds exception data to the log
+         * @param {Exception} ex The exception to log, recursivly traverses the cause(s)
+         * @return {Map<String, Object>} The fields that describe the full exception chain.
+         */
+        private static Map<String, Object> getExceptionFields(Exception ex) {
+            return new Map<String, Object> {
+                'exception_message' => ex.getMessage(),
+                'exception_stack_trace' => ex.getStackTraceString(),
+                'exception_line_number' => ex.getLineNumber(),
+                'exception_type' => ex.getTypeName(),
+                'exception_cause' => ex.getCause() != null ? getExceptionFields(ex.getCause()) : null
+            };
         }
 
         /**
@@ -229,6 +236,7 @@ global with sharing class ForceLog {
             this.fields.remove('exception_stack_trace');
             this.fields.remove('exception_line_number');
             this.fields.remove('exception_type');
+            this.fields.remove('exception_cause');
         }
     }
 

@@ -108,6 +108,26 @@ private class ForceLogTest {
     }
 
     @isTest
+    private static void itShouldAddExceptionCauses() {
+        TestLogger logger = new TestLogger('test');
+
+        logger.expect('level', 'error');
+        logger.expect('message', 'test');
+        logger.expect('exception_message', 'test');
+        logger.expect('exception_type', '*');
+        logger.expect('exception_stack_trace', '*');
+        logger.expect('exception_line_number', '*');
+        logger.expect('exception_cause', '*');
+        logger.expect('timestamp', '*');
+        logger.expect('name', 'test');
+
+        TestException ex = new TestException('test');
+        ex.setCause(new TestException('test'))
+
+        logger.withException(ex).error('test');
+    }
+
+    @isTest
     private static void itShouldNotAllowReservedNames() {
         TestLogger logger = new TestLogger('test');
 
