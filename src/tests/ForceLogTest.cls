@@ -114,6 +114,27 @@ private class ForceLogTest {
     }
 
     @isTest
+    private static void itShouldExcludeSObjectDetails() {
+        TestLogger logger = new TestLogger('test');
+        Contact c = new Contact(
+            FirstName = 'tester',
+            LastName = 'mctest',
+            Email = 'unit@test.com'
+        );
+
+        logger.expect('level', 'info');
+        logger.expect('message', 'test');
+        logger.expect('sobject', new Map<String, Object> {
+            'FirstName' => 'tester',
+            'LastName' => 'mctest'
+        });
+        logger.expect('timestamp', '*');
+        logger.expect('name', 'test');
+
+        logger.withSObject('sobject', c, new Set<String> { 'Email' }).info('test');
+    }
+
+    @isTest
     private static void itShouldAddExceptionDetails() {
         TestLogger logger = new TestLogger('test');
 
