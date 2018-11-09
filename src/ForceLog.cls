@@ -224,14 +224,19 @@ global with sharing class ForceLog {
          */
         public Logger withSObject(String key, SObject obj, Set<String> excludeFields) {
             Map<String, Object> values = obj.getPopulatedFieldsAsMap();
-            
+            Map<String, Object> output = new Map<String, Object>();
+
             // Remove any fields from the map that are excluded.
-            for (String field : excludeFields) {
-                values.remove(field);
+            for (String field : values.keySet()) {
+                if (set.contains(field)) {
+                    continue;
+                }
+
+                output.put(field, values.get(field));
             }
 
             Map<String, Object> entry = new Map<String, Object> {
-                key => values
+                key => output
             };
 
             this.fields.putAll(entry);
