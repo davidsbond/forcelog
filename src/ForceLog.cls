@@ -222,10 +222,11 @@ global with sharing class ForceLog {
          * @return {Logger} The current instance of the logger, for method chaining.
          */
         public Logger withSObject(String key, SObject obj, Set<String> excludeFields) {
+            Map<String, Object> objMap = obj.getPopulatedFieldsAsMap();
             Map<String, Object> values = new Map<String, Object>();
 
             // Remove any fields from the map that are excluded.
-            for (String field : obj.getPopulatedFieldsAsMap().keySet()) {
+            for (String field : objMap.keySet()) {
                 if (excludeFields.contains(field)) {
                     continue;
                 }
