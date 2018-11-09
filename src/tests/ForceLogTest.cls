@@ -132,9 +132,18 @@ private class ForceLogTest {
 
         logger.expect('level', 'error');
         logger.expect('message', 'test');
-        logger.expect('request', '*');
+        logger.expect('request', new Map<String, Object> {
+            'body' => '',
+            'compressed' => false,
+            'endpoint' => 'test_endpoint',
+            'method' => 'GET'
+        });
 
-        logger.withRequest(new HttpRequest()).error('test');
+        HttpRequest req = new HttpRequest();
+        req.setMethod('GET');
+        req.setEndpoint('test_endpoint');
+
+        logger.withRequest(req).error('test');
     }
 
     @isTest
@@ -143,9 +152,18 @@ private class ForceLogTest {
 
         logger.expect('level', 'error');
         logger.expect('message', 'test');
-        logger.expect('test_request', '*');
+        logger.expect('test_request', new Map<String, Object> {
+            'body' => '',
+            'compressed' => false,
+            'endpoint' => 'test_endpoint',
+            'method' => 'GET'
+        });
 
-        logger.withRequest('test_request', new HttpRequest()).error('test');
+        HttpRequest req = new HttpRequest();
+        req.setMethod('GET');
+        req.setEndpoint('test_endpoint');
+        
+        logger.withRequest('test_request', req).error('test');
     }
 
     @isTest
@@ -154,9 +172,17 @@ private class ForceLogTest {
 
         logger.expect('level', 'error');
         logger.expect('message', 'test');
-        logger.expect('response', '*');
+        logger.expect('response', new Map<String, Object> {
+            'body' => '',
+            'status' => 'OK',
+            'status_code' => 200
+        });
 
-        logger.withResponse(new HttpResponse()).error('test');
+        HttpResponse res = new HttpResponse();
+        res.setStatus('OK');
+        res.setStatusCode(200);
+
+        logger.withResponse(res).error('test');
     }
 
     @isTest
@@ -165,9 +191,17 @@ private class ForceLogTest {
 
         logger.expect('level', 'error');
         logger.expect('message', 'test');
-        logger.expect('test_response', '*');
+        logger.expect('test_response', new Map<String, Object> {
+            'body' => '',
+            'status' => 'OK',
+            'status_code' => 200
+        });
 
-        logger.withResponse('test_response', new HttpResponse()).error('test');
+        HttpResponse res = new HttpResponse();
+        res.setStatus('OK');
+        res.setStatusCode(200);
+
+        logger.withResponse('test_response', res).error('test');
     }
 
     @isTest
