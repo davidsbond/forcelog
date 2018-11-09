@@ -218,9 +218,7 @@ global with sharing class ForceLog {
             };
 
             // Add additional fields to log.
-            for (String key : this.fields.keySet()) {
-                log.put(key, this.fields.get(key));
-            }
+            log.putAll(this.fields);
 
             // Invoke log flushing implementation.
             this.flush(log);
