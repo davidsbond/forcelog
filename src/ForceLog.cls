@@ -171,6 +171,9 @@ global with sharing class ForceLog {
                 when 'exception_type' {
                     throw new ReservedFieldException('Field name "exception_type" is reserved, use withException() instead');
                 }
+                when 'exception_cause' {
+                    throw new ReservedFieldException('Field name "exception_cause" is reserved, use withException() instead');
+                }
                 when else {
                     this.fields.put(name, value);
                 }
@@ -186,16 +189,8 @@ global with sharing class ForceLog {
          * @return {Logger} The current instance of the logger, for method chaining.
          */
         public Logger withException(Exception ex) {
-            // If the exception wraps another, use the wrapped one
-            if (ex.getCause() != null) {
-                return this.withException(ex.getCause());
-            }
-
             // Add exception details to the log fields.
-            this.fields.put('exception_message', ex.getMessage());
-            this.fields.put('exception_stack_trace', ex.getStackTraceString());
-            this.fields.put('exception_line_number', ex.getLineNumber());
-            this.fields.put('exception_type', ex.getTypeName());
+            this.fields.putAll(getExceptionFields(ex));
 
             return this;
         }
@@ -218,9 +213,7 @@ global with sharing class ForceLog {
             };
 
             // Add additional fields to log.
-            for (String key : this.fields.keySet()) {
-                log.put(key, this.fields.get(key));
-            }
+            log.putAll(this.fields);
 
             // Invoke log flushing implementation.
             this.flush(log);
@@ -231,6 +224,7 @@ global with sharing class ForceLog {
             this.fields.remove('exception_stack_trace');
             this.fields.remove('exception_line_number');
             this.fields.remove('exception_type');
+            this.fields.remove('exception_cause');
         }
     }
 
@@ -286,5 +280,20 @@ global with sharing class ForceLog {
                 System.debug(JSON.serialize(log));
             }
         }
+    }
+
+    /**
+     * @description Gets the fields to log from an exception, recursivly traverses the cause(s)
+     * @param {Exception} ex The exception to get fields from
+     * @return {Map<String, Object>} The fields to log from the exception
+     */
+    private static Map<String, Object> getExceptionFields(Exception ex) {
+        return new Map<String, Object> {
+            'exception_message' => ex.getMessage(),
+            'exception_stack_trace' => ex.getStackTraceString(),
+            'exception_line_number' => ex.getLineNumber(),
+            'exception_type' => ex.getTypeName(),
+            'exception_cause' => ex.getCause() != null ? getExceptionFields(ex.getCause()) : null
+        };
     }
 }
