@@ -124,6 +124,8 @@ Adds a field to the log with the specified value. Will throw a `ReservedFieldExc
 * `exception_stack_trace`
 * `exception_line_number`
 * `exception_cause`
+* `request`
+* `response`
 
 ```apex
  ForceLog.Logger log = new ForceLog.Logger('myClassName');
@@ -192,6 +194,34 @@ Adds exception data to the log. Will add the message, type, stack trace and line
  } catch(Exception ex) {
     log.withException(ex).error('uh oh!');
  }
+```
+
+### ForceLog.Logger withRequest([String name,] HttpRequest req [, Set<String> includeHeaders])
+
+Adds HTTP request data to the log. If no name is supplied it will add it in the `request` field. Headers can be included by specifying the headers to include using the `includeHeaders` argument.
+
+```apex
+ ForceLog.Logger log = new ForceLog.Logger('myClassName');
+ HttpRequest req = new HttpRequest();
+
+ log.withRequest(req).info('got request');
+ log.withRequest('my_request', req).info('got request');
+ log.withRequest(req, new Set<String> { 'Content-Type' }).info('got request');
+ log.withRequest('my_request', req, new Set<String> { 'Content-Type' }).info('got request');
+```
+
+### ForceLog.Logger withResponse([String name,] HttpResponse res [, Set<String> excludeHeaders])
+
+Adds HTTP response data to the log. If no name is supplied it will add it in the `response` field. Headers can be excluded by specifying the headers to exclude using the `excludeHeaders` argument, e.g. if they contain credentials.
+
+```apex
+ ForceLog.Logger log = new ForceLog.Logger('myClassName');
+ HttpResponse res = new HttpResponse(); // or from Http.send()
+
+ log.withResponse(res).info('got response');
+ log.withResponse('my_response', res).info('got response');
+ log.withResponse(res, new Set<String> { 'X-Token' }).info('got response');
+ log.withResponse('my_response', res, new Set<String> { 'X-Token }).info('got response');
 ```
 
 ### void dispose()

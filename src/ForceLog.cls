@@ -24,6 +24,42 @@ global with sharing class ForceLog {
     }
 
     /**
+     * @description SError message for a reserved field.
+     */
+    private static String RESERVED_FIELD_ERROR = 'Field name "{0}" is reserved';
+
+    /**
+     * @description SError message for a reserved field used by withException().
+     */
+    private static String RESERVED_EXCEPTION_FIELD_ERROR = 'Field name "{0}" is reserved, use withException() instead';
+
+    /**
+     * @description SError message for a reserved field used by withRequest().
+     */
+    private static String RESERVED_REQUEST_FIELD_ERROR = 'Field name "{0}" is reserved, use withRequest() instead';
+
+    /**
+     * @description SError message for a reserved field used by withResponse().
+     */
+    private static String RESERVED_RESPONSE_FIELD_ERROR = 'Field name "{0}" is reserved, use withResponse() instead';
+
+    /**
+     * @description Map of reserved field names and their error messages.
+     */
+    private static final Map<String, String> RESERVED_FIELDS = new Map<String, String> {
+        'name' => RESERVED_FIELD_ERROR,
+        'level' => RESERVED_FIELD_ERROR,
+        'timestamp' => RESERVED_FIELD_ERROR,
+        'exception_message' => RESERVED_EXCEPTION_FIELD_ERROR,
+        'exception_type' => RESERVED_EXCEPTION_FIELD_ERROR,
+        'exception_stack_trace' => RESERVED_EXCEPTION_FIELD_ERROR,
+        'exception_line_number' => RESERVED_EXCEPTION_FIELD_ERROR,
+        'exception_cause' => RESERVED_EXCEPTION_FIELD_ERROR,
+        'request' => RESERVED_REQUEST_FIELD_ERROR,
+        'response' => RESERVED_RESPONSE_FIELD_ERROR
+    };
+
+    /**
      * @description The Logger class is responsible for producing structured
      * logs and will execute the `flush()` method every time a write method
      * is used (debug, info, warning, error, panic)
@@ -44,13 +80,6 @@ global with sharing class ForceLog {
         private String name;
 
         /**
-         * @description The level for this log, should be
-         * debug, info, warning, error or panic
-         * @type {Level}
-         */
-        private Level logLevel;
-
-        /**
          * @description Initializes a new instance of the 
          * Logger class.
          * @param {String} name The log name, should be a class or method name.
@@ -68,8 +97,7 @@ global with sharing class ForceLog {
          * @return {void}
          */
         public void debug(String message) {
-            this.logLevel = level.DEBUG;
-            this.write(message);
+            this.write(message, Level.DEBUG);
         }
 
         /**
@@ -79,8 +107,7 @@ global with sharing class ForceLog {
          * @return {void}
          */
         public void info(String message) {
-            this.logLevel = Level.INFO;
-            this.write(message);
+            this.write(message, Level.INFO);
         }
 
         /**
@@ -90,8 +117,7 @@ global with sharing class ForceLog {
          * @return {void}
          */
         public void warning(String message) {
-            this.logLevel = Level.WARNING;
-            this.write(message);
+            this.write(message, Level.WARNING);
         }
 
         /**
@@ -101,8 +127,7 @@ global with sharing class ForceLog {
          * @return {void}
          */
         public void error(String message) {
-            this.logLevel = Level.ERROR;
-            this.write(message);
+            this.write(message, Level.ERROR);
         }
 
         /**
@@ -112,8 +137,7 @@ global with sharing class ForceLog {
          * @return {void}
          */
         public void panic(String message) {
-            this.logLevel = Level.PANIC;
-            this.write(message);
+            this.write(message, Level.PANIC);
         }
 
         /**
@@ -149,41 +173,17 @@ global with sharing class ForceLog {
          */
         public Logger withField(String name, Object value) {
             // Throw a ReservedFieldException if trying to use a reserved field name.
-            switch on name {
-                when 'name' {
-                    throw new ReservedFieldException('Field name "name" is reserved');
-                }
-                when 'level' {
-                    throw new ReservedFieldException('Field name "level" is reserved');
-                }
-                when 'timestamp' {
-                    throw new ReservedFieldException('Field name "timestamp" is reserved');
-                }
-                when 'exception_message' {
-                    throw new ReservedFieldException('Field name "exception_message" is reserved, use withException() instead');
-                }
-                when 'exception_stack_trace' {
-                    throw new ReservedFieldException('Field name "exception_stack_trace" is reserved, use withException() instead');
-                }
-                when 'exception_line_number' {
-                    throw new ReservedFieldException('Field name "exception_line_number" is reserved, use withException() instead');
-                }
-                when 'exception_type' {
-                    throw new ReservedFieldException('Field name "exception_type" is reserved, use withException() instead');
-                }
-                when 'exception_cause' {
-                    throw new ReservedFieldException('Field name "exception_cause" is reserved, use withException() instead');
-                }
-                when else {
-                    this.fields.put(name, value);
-                }
+            if(RESERVED_FIELDS.keySet().contains(name)) {
+                throw new ReservedFieldException(String.format(RESERVED_FIELDS.get(name), new List<String> { name }));
+            } else {
+                this.fields.put(name, value);
             }
 
             return this;
         }
 
         /**
-         * @description Adds exception data to the log
+         * @description Adds exception data to the log.
          * @param {Exception} ex The exception to log, traverses the cause
          * of each exception to log the root cause of any exception.
          * @return {Logger} The current instance of the logger, for method chaining.
@@ -243,18 +243,152 @@ global with sharing class ForceLog {
         }
 
         /**
+         * @description Adds a key-value map of SObjects to the logging output
+         * @param {Map<String, SObject>} sobjects The map of SObjects to add to the log
+         * @return {Logger} The current instance of the logger, for method chaining.
+         */
+        public Logger withSObjects(Map<String, SObject> sobjects) {
+            for (String key : sobjects.keySet()) {
+                this.withSObject(key, sobjects.get(key));
+            }
+
+            return this;
+        }
+
+         /**
+         * @description Adds HttpRequest data to the log.
+         * @param {HttpRequest} req The HttpRequest to log.
+         * @return {Logger} The current instance of the logger, for method chaining.
+         */
+        public Logger withRequest(HttpRequest req) {
+            return withRequest(req, new Set<String>());
+        }
+
+        /**
+         * @description Adds HttpRequest data to the log using a defined field name.
+         * @param {String} name The field name.
+         * @param {HttpRequest} req The HttpRequest to log.
+         * @return {Logger} The current instance of the logger, for method chaining.
+         */
+        public Logger withRequest(String name, HttpRequest req) {
+            return withRequest(name, req, new Set<String>());
+        }
+
+        /**
+         * @description Adds HttpRequest data to the log including headers.
+         * @param {HttpRequest} req The HttpRequest to log.
+         * @param {Set<String>} includeHeaders The headers to include in the log.
+         * @return {Logger} The current instance of the logger, for method chaining.
+         */
+        public Logger withRequest(HttpRequest req, Set<String> includeHeaders) {
+            return withRequest('request', req, includeHeaders);
+        }
+
+        /**
+         * @description Adds HttpRequest data to the log including headers using a defined field name.
+         * @param {String} name The field name.
+         * @param {HttpRequest} req The HttpRequest to log.
+         * @param {Set<String>} includeHeaders The headers to include in the log.
+         * @return {Logger} The current instance of the logger, for method chaining.
+         */
+        public Logger withRequest(String name, HttpRequest req, Set<String> includeHeaders) {
+            Map<String, Object> requestFields = new Map<String, Object> {
+                'body' => req.getBody(),
+                'compressed' => req.getCompressed(),
+                'endpoint' => req.getEndpoint(),
+                'method' => req.getMethod()
+            };
+            
+            if (!includeHeaders.isEmpty()) {
+                // Build up the map of headers if they should be included
+                Map<String, String> headers = new Map<String, String>();
+
+                for (String header : includeHeaders) {
+                    headers.put(header, req.getHeader(header));
+                }
+
+                requestFields.put('headers', headers);
+            }
+
+            this.fields.put(name, requestFields);
+            return this;
+        }
+
+        /**
+         * @description Adds HttpResponse data to the log.
+         * @param {HttpResponse} res The HttpResponse to log.
+         * @return {Logger} The current instance of the logger, for method chaining.
+         */
+        public Logger withResponse(HttpResponse res) {
+            return withResponse(res, new Set<String>());
+        }
+
+        /**
+         * @description Adds HttpResponse data to the log using a defined field name.
+         * @param {String} name The field name.
+         * @param {HttpResponse} res The HttpResponse to log.
+         * @return {Logger} The current instance of the logger, for method chaining.
+         */
+        public Logger withResponse(String name, HttpResponse res) {
+            return withResponse(name, res, new Set<String>());
+        }
+
+        /**
+         * @description Adds HttpResponse data to the log excluding headers.
+         * @param {HttpResponse} res The HttpResponse to log.
+         * @param {Set<String>} excludeHeaders The headers to exclude from the log.
+         * @return {Logger} The current instance of the logger, for method chaining.
+         */
+        public Logger withResponse(HttpResponse res, Set<String> excludeHeaders) {
+            return withResponse('response', res, excludeHeaders);
+        }
+
+        /**
+         * @description Adds HttpResponse data to the log excluding headers using a defined field name.
+         * @param {String} name The field name.
+         * @param {HttpResponse} res The HttpResponse to log.
+         * @param {Set<String>} excludeHeaders The headers to exclude from the log.
+         * @return {Logger} The current instance of the logger, for method chaining.
+         */
+        public Logger withResponse(String name, HttpResponse res, Set<String> excludeHeaders) {
+            Map<String, Object> responseFields = new Map<String, Object> {
+                'body' => res.getBody(),
+                'status' => res.getStatus(),
+                'status_code' => res.getStatusCode()
+            };
+
+            // Build up the map of headers
+            Map<String, String> headers = new Map<String, String>();
+
+            for (String header : res.getHeaderKeys()) {
+                if(!excludeHeaders.contains(header)) {
+                    headers.put(header, res.getHeader(header));
+                }
+            }
+
+            if(!headers.isEmpty()) {
+                responseFields.put('headers', headers);
+            }
+
+            this.fields.put(name, responseFields);
+
+            return this;
+        }
+
+        /**
          * @description Converts the log into an instance of
          * Map<String, Object> containing all provided fields
          * and exception details. This map is then passed to the
          * provided implementation of the flush() method.
          * @param {String} message The log message
+         * @param {Level} logLevel The level for this log, should be debug, info, warning, error or panic
          * @return {void}
          */
-        private void write(String message) {
+        private void write(String message, Level logLevel) {
             // Create map containing default logging fields.
             Map<String, Object> log = new Map<String, Object> {
                 'message' => message,
-                'level' => this.logLevel.name().toLowerCase(),
+                'level' => logLevel.name().toLowerCase(),
                 'name' => this.name,
                 'timestamp' => Datetime.now()
             };
@@ -265,13 +399,8 @@ global with sharing class ForceLog {
             // Invoke log flushing implementation.
             this.flush(log);
 
-            // Remove exception fields if present as these have
-            // already been logged.
-            this.fields.remove('exception_message');
-            this.fields.remove('exception_stack_trace');
-            this.fields.remove('exception_line_number');
-            this.fields.remove('exception_type');
-            this.fields.remove('exception_cause');
+            // Remove fields if present as these have already been logged.
+            this.fields.clear();
         }
     }
 
