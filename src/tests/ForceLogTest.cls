@@ -186,6 +186,31 @@ private class ForceLogTest {
     }
 
     @isTest
+    private static void itShouldIncludeHttpRequestHeaders() {
+        TestLogger logger = new TestLogger('test');
+
+        logger.expect('level', 'error');
+        logger.expect('message', 'test');
+        logger.expect('test_request', new Map<String, Object> {
+            'body' => '',
+            'compressed' => false,
+            'endpoint' => 'test_endpoint',
+            'headers' => new Map<String, String> {
+                'X-Header-2' => 'test_header_2'
+            },
+            'method' => 'GET'
+        });
+
+        HttpRequest req = new HttpRequest();
+        req.setHeader('X-Header-1', 'test_header_1');
+        req.setHeader('X-Header-2', 'test_header_2');
+        req.setMethod('GET');
+        req.setEndpoint('test_endpoint');
+        
+        logger.withRequest('test_request', req, new Set<String> { 'X-Header-2' }).error('test');
+    }
+
+    @isTest
     private static void itShouldAddHttpResponseDetailsWithName() {
         TestLogger logger = new TestLogger('test');
 
@@ -202,6 +227,30 @@ private class ForceLogTest {
         res.setStatusCode(200);
 
         logger.withResponse('test_response', res).error('test');
+    }
+
+    @isTest
+    private static void itShouldExcludeHttpResponseHeaders() {
+        TestLogger logger = new TestLogger('test');
+
+        logger.expect('level', 'error');
+        logger.expect('message', 'test');
+        logger.expect('test_response', new Map<String, Object> {
+            'body' => '',
+            'headers' => new Map<String, String> {
+                'X-Header-2' => 'test_header_2'
+            },
+            'status' => 'OK',
+            'status_code' => 200
+        });
+
+        HttpResponse res = new HttpResponse();
+        res.setHeader('X-Header-1', 'test_header_1');
+        res.setHeader('X-Header-2', 'test_header_2');
+        res.setStatus('OK');
+        res.setStatusCode(200);
+
+        logger.withResponse('test_response', res, new Set<String> { 'X-Header-1' }).error('test');
     }
 
     @isTest
