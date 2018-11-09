@@ -231,7 +231,7 @@ global with sharing class ForceLog {
                     continue;
                 }
 
-                values.put(field, values.get(field));
+                values.put(field, objMap.get(field));
             }
 
             Map<String, Object> entry = new Map<String, Object> {
