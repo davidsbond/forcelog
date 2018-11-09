@@ -143,7 +143,7 @@ global with sharing class ForceLog {
          * @description Adds a field to the log
          * @param {String} name The field name
          * @param {Object} value The field's value
-         * @throws {InvalidParameterException} Exception is thrown when reserved field
+         * @throws {ReservedFieldException} Exception thrown when reserved field
          * names are used.
          * @return {Logger} The current instance of the logger, for method chaining.
          */
