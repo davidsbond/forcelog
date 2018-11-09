@@ -105,7 +105,7 @@ private class ForceLogTest {
             Name = 'test'
         );
 
-        logger.expect('account', new Map<String, SObject>{
+        logger.expect('account', new Map<String, Object>{
             'Name' => 'test'
         });
 
@@ -139,7 +139,7 @@ private class ForceLogTest {
             Name = 'test'
         );
 
-        logger.expect('account', new Map<String, SObject>{
+        logger.expect('account', new Map<String, Object>{
             'Name' => 'test'
         });
 
