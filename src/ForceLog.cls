@@ -196,6 +196,47 @@ global with sharing class ForceLog {
         }
 
         /**
+         * @description Adds SObject data to the log. This overload uses
+         * SObject.getPopulatedFieldsAsMap() to obtain each field populated on
+         * the provided SObject.
+         * @param {String} key The key to nest SObject data under
+         * @param {SObject} obj The SObject data to log
+         * @return {Logger} The current instance of the logger, for method chaining.
+         */
+        public Logger withSObject(String key, SObject obj) {
+            Map<String, Object> values = obj.getPopulatedFieldsAsMap();
+            Map<String, Object> entry = new Map<String, Object> {
+                key => values
+            };
+
+            this.fields.putAll(entry);
+        }
+
+        /**
+         * @description Adds SObject data to the log. This overload uses
+         * SObject.getPopulatedFieldsAsMap() to obtain each field populated on
+         * the provided SObject.
+         * @param {String} key The key to nest SObject data under
+         * @param {SObject} obj The SObject data to log
+         * @param {Set<String>} excludeFields SObject fields to remove from the log.
+         * @return {Logger} The current instance of the logger, for method chaining.
+         */
+        public Logger withSObject(String key, SObject obj, Set<String> excludeFields) {
+            Map<String, Object> values = obj.getPopulatedFieldsAsMap();
+            
+            // Remove any fields from the map that are excluded.
+            for (String field : excludeFields) {
+                values.remove(field);
+            }
+
+            Map<String, Object> entry = new Map<String, Object> {
+                key => values
+            };
+
+            this.fields.putAll(entry);
+        }
+
+        /**
          * @description Converts the log into an instance of
          * Map<String, Object> containing all provided fields
          * and exception details. This map is then passed to the
