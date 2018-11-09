@@ -137,7 +137,8 @@ private class ForceLogTest {
             'exception_message',
             'exception_type',
             'exception_stack_trace',
-            'exception_line_number'
+            'exception_line_number',
+            'exception_cause'
         };
 
         for (String name : names) {
