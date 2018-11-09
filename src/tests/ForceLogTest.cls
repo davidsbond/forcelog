@@ -127,6 +127,50 @@ private class ForceLogTest {
     }
 
     @isTest
+    private static void itShouldAddHttpRequestDetails() {
+        TestLogger logger = new TestLogger('test');
+
+        logger.expect('level', 'error');
+        logger.expect('message', 'test');
+        logger.expect('request', '*');
+
+        logger.withRequest(new HttpRequest()).error('test');
+    }
+
+    @isTest
+    private static void itShouldAddHttpRequestDetailsWithName() {
+        TestLogger logger = new TestLogger('test');
+
+        logger.expect('level', 'error');
+        logger.expect('message', 'test');
+        logger.expect('test_request', '*');
+
+        logger.withRequest('test_request', new HttpRequest()).error('test');
+    }
+
+    @isTest
+    private static void itShouldAddHttpResponseDetails() {
+        TestLogger logger = new TestLogger('test');
+
+        logger.expect('level', 'error');
+        logger.expect('message', 'test');
+        logger.expect('response', '*');
+
+        logger.withResponse(new HttpResponse()).error('test');
+    }
+
+    @isTest
+    private static void itShouldAddHttpResponseDetailsWithName() {
+        TestLogger logger = new TestLogger('test');
+
+        logger.expect('level', 'error');
+        logger.expect('message', 'test');
+        logger.expect('test_response', '*');
+
+        logger.withResponse('test_response', new HttpResponse()).error('test');
+    }
+
+    @isTest
     private static void itShouldNotAllowReservedNames() {
         TestLogger logger = new TestLogger('test');
 
@@ -138,7 +182,9 @@ private class ForceLogTest {
             'exception_type',
             'exception_stack_trace',
             'exception_line_number',
-            'exception_cause'
+            'exception_cause',
+            'request',
+            'response'
         };
 
         for (String name : names) {
@@ -277,7 +323,7 @@ private class ForceLogTest {
                     // If we only care about the field existing, ensure
                     // it is not null.
                     if (expVal == '*') {
-                        System.assertNotEquals(null, actVal);
+                        System.assertNotEquals(null, actVal, String.format('{0} {1}', new List<String> { expKey, JSON.serialize(log) }));
                         return;
                     }
 
