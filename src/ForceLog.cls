@@ -255,6 +255,20 @@ global with sharing class ForceLog {
             return this;
         }
 
+        /**
+         * @description Adds a key-value map of SObjects to the logging output
+         * @param {Map<String, SObject>} sobjects The map of SObjects to add to the log.
+         * @param {Set<String>} excludeFields SObject fields to remove from the log.
+         * @return {Logger} The current instance of the logger, for method chaining.
+         */
+        public Logger withSObjects(Map<String, SObject> sobjects, Set<String> excludeFields) {
+            for (String key : sobjects.keySet()) {
+                this.withSObject(key, sobjects.get(key), excludeFields);
+            }
+
+            return this;
+        }
+
          /**
          * @description Adds HttpRequest data to the log.
          * @param {HttpRequest} req The HttpRequest to log.
