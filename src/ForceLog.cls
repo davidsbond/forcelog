@@ -210,6 +210,7 @@ global with sharing class ForceLog {
             };
 
             this.fields.putAll(entry);
+            return this;
         }
 
         /**
@@ -234,6 +235,7 @@ global with sharing class ForceLog {
             };
 
             this.fields.putAll(entry);
+            return this;
         }
 
         /**
