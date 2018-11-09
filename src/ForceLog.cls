@@ -228,7 +228,7 @@ global with sharing class ForceLog {
 
             // Remove any fields from the map that are excluded.
             for (String field : values.keySet()) {
-                if (set.contains(field)) {
+                if (excludeFields.contains(field)) {
                     continue;
                 }
 
