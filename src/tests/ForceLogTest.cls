@@ -92,6 +92,81 @@ private class ForceLogTest {
     }
 
     @isTest
+    private static void itShouldAddAnArrayOfSObjects() {
+        TestLogger logger = new TestLogger('test');
+        
+        List<SObject> objs = new List<SObject> {
+            new Contact(
+                FirstName = 'tester',
+                LastName = 'mctest',
+                Email = 'unit@test.com'
+            ),
+            new Contact(
+                FirstName = 'testly',
+                LastName = 'mctest',
+                Email = 'unit@test.com'
+            ),
+        };
+
+        logger.expect('sobjects', new List<Object> {
+            new Map<String, Object> {
+                'FirstName' => 'tester',
+                'LastName' => 'mctest',
+                'Email' => 'unit@test.com'
+            },
+            new Map<String, Object> {
+                'FirstName' => 'testly',
+                'LastName' => 'mctest',
+                'Email' => 'unit@test.com'
+            }
+        });
+
+        logger.expect('level', 'info');
+        logger.expect('message', 'test');
+        logger.expect('timestamp', '*');
+        logger.expect('name', 'test');
+
+        logger.withSObjects('sobjects', objs).info('test');
+    }
+
+    @isTest
+    private static void itShouldExcludeFieldsForAnArrayOfSObjects() {
+        TestLogger logger = new TestLogger('test');
+        
+        List<SObject> objs = new List<SObject> {
+            new Contact(
+                FirstName = 'tester',
+                LastName = 'mctest',
+                Email = 'unit@test.com'
+            ),
+            new Contact(
+                FirstName = 'testly',
+                LastName = 'mctest',
+                Email = 'unit@test.com'
+            ),
+        };
+
+        logger.expect('sobjects', new List<Object> {
+            new Map<String, Object> {
+                'Email' => 'unit@test.com'
+            },
+            new Map<String, Object> {
+                'Email' => 'unit@test.com'
+            }
+        });
+
+        logger.expect('level', 'info');
+        logger.expect('message', 'test');
+        logger.expect('timestamp', '*');
+        logger.expect('name', 'test');
+
+        logger.withSObjects('sobjects', objs, new Set<String> { 
+            'FirstName', 
+            'LastName' 
+        }).info('test');
+    }
+
+    @isTest
     private static void itShouldExcludeFieldsForMultipleSObjects() {
         TestLogger logger = new TestLogger('test');
 

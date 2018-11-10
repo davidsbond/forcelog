@@ -256,6 +256,45 @@ global with sharing class ForceLog {
         }
 
         /**
+         * @description Adds an array of SObjects to the log under a given key
+         * @param {String} key The key with which all SObject data will be nested in the log
+         * @param {List<SObject>} sobjects The SObjects to add to the log
+         * @return {Logger} The current instance of the logger, for method chaining.
+         */
+        public Logger withSObjects(String key, List<SObject> sobjects) {
+            return this.withField(key, sobjects);
+        }
+
+        /**
+         * @description Adds an array of SObjects to the log under a given key
+         * @param {String} key The key with which all SObject data will be nested in the log
+         * @param {List<SObject>} sobjects The SObjects to add to the log
+         * @param {Set<String>} excludeFields SObject fields to remove from the log.
+         * @return {Logger} The current instance of the logger, for method chaining.
+         */
+        public Logger withSObjects(String key, List<SObject> sobjects, Set<String> excludeFields) {
+            List<Object> values = new List<Object>();
+
+            for (SObject obj : sobjects) {
+                Map<String, Object> objMap = obj.getPopulatedFieldsAsMap();
+                Map<String, Object> objValues = new Map<String, Object>();   
+
+                for (String field : objMap.keySet()) {
+                    if (excludeFields.contains(field)) {
+                        continue;
+                    }
+
+                    objValues.put(field, objMap.get(field));
+                }
+
+
+                values.add(objValues);            
+            }
+
+            return this.withField(key, values);
+        }
+
+        /**
          * @description Adds a key-value map of SObjects to the logging output
          * @param {Map<String, SObject>} sobjects The map of SObjects to add to the log.
          * @param {Set<String>} excludeFields SObject fields to remove from the log.
