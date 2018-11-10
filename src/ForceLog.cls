@@ -319,7 +319,7 @@ public with sharing class ForceLog {
         /**
          * @description Adds a single instance of Database.SaveResult to the log
          * @param {Database.SaveResult} res The database result to log
-         * @returns {Logger} The current instance of the logger, for method chaining.
+         * @return {Logger} The current instance of the logger, for method chaining.
          */
         public Logger withResult(Database.SaveResult res) {
             return this.withResult('result', res);
@@ -328,7 +328,7 @@ public with sharing class ForceLog {
         /**
          * @description Adds a single instance of Database.DeleteResult to the log
          * @param {Database.DeleteResult} res The database result to log
-         * @returns {Logger} The current instance of the logger, for method chaining.
+         * @return {Logger} The current instance of the logger, for method chaining.
          */
         public Logger withResult(Database.DeleteResult res) {
             return this.withResult('result', res);
@@ -337,7 +337,7 @@ public with sharing class ForceLog {
         /**
          * @description Adds a single instance of Database.UpsertResult to the log
          * @param {Database.UpsertResult} res The database result to log
-         * @returns {Logger} The current instance of the logger, for method chaining.
+         * @return {Logger} The current instance of the logger, for method chaining.
          */
         public Logger withResult(Database.UpsertResult res) {
             return this.withResult('result', res);
@@ -348,7 +348,7 @@ public with sharing class ForceLog {
          * a given key
          * @param {String} key The key where the save result will be nested in the log.
          * @param {Database.DeleteResult} res The database result to log
-         * @returns {Logger} The current instance of the logger, for method chaining.
+         * @return {Logger} The current instance of the logger, for method chaining.
          */
         public Logger withResult(String key, Database.DeleteResult res) {
             Map<String, Object> entry = new Map<String, Object>{
@@ -366,7 +366,7 @@ public with sharing class ForceLog {
          * a given key
          * @param {String} key The key where the save result will be nested in the log.
          * @param {Database.SaveResult} res The database result to log
-         * @returns {Logger} The current instance of the logger, for method chaining.
+         * @return {Logger} The current instance of the logger, for method chaining.
          */
         public Logger withResult(String key, Database.SaveResult res) {
             Map<String, Object> entry = new Map<String, Object>{
@@ -384,7 +384,7 @@ public with sharing class ForceLog {
          * a given key
          * @param {String} key The key where the save result will be nested in the log.
          * @param {Database.UpsertResult} res The database result to log
-         * @returns {Logger} The current instance of the logger, for method chaining.
+         * @return {Logger} The current instance of the logger, for method chaining.
          */
         public Logger withResult(String key, Database.UpsertResult res) {
             Map<String, Object> entry = new Map<String, Object>{
