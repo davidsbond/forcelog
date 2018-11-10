@@ -154,6 +154,34 @@ private class ForceLogTest {
     }
 
     @isTest
+    private static void itShouldAddUpsertResult() {
+        TestLogger logger = new TestLogger('test');
+
+        Contact c = new Contact(
+            FirstName = 'tester',
+            LastName = 'mctest',
+            Email = 'unit@test.com'
+        );
+
+        Database.UpsertResult result = Database.upsert(c);
+
+        logger.expect('level', 'info');
+        logger.expect('message', 'test');
+        logger.expect('result', new Map<String, Object> {
+            'id' => result.getId(),
+            'success' => result.isSuccess(),
+            'errors' => new List<Object>(),
+            'created' => result.isCreated(),
+            'type' => 'upsert'
+        });
+        logger.expect('timestamp', '*');
+        logger.expect('name', 'test');
+
+        logger.withResult(result).info('test');        
+    }
+
+
+    @isTest
     private static void itShouldAddDeleteResult() {
         TestLogger logger = new TestLogger('test');
 
