@@ -398,18 +398,38 @@ public with sharing class ForceLog {
             return this.withField(key, entry);
         }
 
+        /**
+         * @description Adds a list of Database.SaveResult to the log data.
+         * @param {List<Database.SaveResult>} results The database results to log
+         * @return {Logger} The current instance of the logger, for method chaining.
+         */
         public Logger withResults(List<Database.SaveResult> results) {
             return this.withResults('results', results);
         }
 
+        /**
+         * @description Adds a list of Database.UpsertResult to the log data.
+         * @param {List<Database.UpsertResult>} results The database results to log
+         * @return {Logger} The current instance of the logger, for method chaining.
+         */
         public Logger withResults(List<Database.UpsertResult> results) {
             return this.withResults('results', results);
         }
 
+        /**
+         * @description Adds a list of Database.DeleteResult to the log data.
+         * @param {List<Database.DeleteResult>} results The database results to log
+         * @return {Logger} The current instance of the logger, for method chaining.
+         */
         public Logger withResults(List<Database.DeleteResult> results) {
             return this.withResults('results', results);
         }
 
+        /**
+         * @description Adds a list of Database.SaveResult to the log data.
+         * @param {List<Database.SaveResult>} results The database results to log
+         * @return {Logger} The current instance of the logger, for method chaining.
+         */
         public Logger withResults(String key, List<Database.SaveResult> results) {
             List<Object> entry = new List<Object>();
 
@@ -425,6 +445,13 @@ public with sharing class ForceLog {
             return this.withField(key, entry);
         }
 
+        /**
+         * @description Adds a list of Database.UpsertResult to the log data under
+         * a given key.
+         * @param {String} key The key to nest the result data.
+         * @param {List<Database.UpsertResult>} results The database results to log
+         * @return {Logger} The current instance of the logger, for method chaining.
+         */
         public Logger withResults(String key, List<Database.UpsertResult> results) {
             List<Object> entry = new List<Object>();
 
@@ -441,6 +468,13 @@ public with sharing class ForceLog {
             return this.withField(key, entry);
         }
 
+        /**
+         * @description Adds a list of Database.DeleteResult to the log data under
+         * a given key.
+         * @param {String} key The key to nest the result data.
+         * @param {List<Database.DeleteResult>} results The database results to log
+         * @return {Logger} The current instance of the logger, for method chaining.
+         */
         public Logger withResults(String key, List<Database.DeleteResult> results) {
             List<Object> entry = new List<Object>();
 
@@ -456,6 +490,12 @@ public with sharing class ForceLog {
             return this.withField(key, entry);
         }
 
+        /**
+         * @description Converts an instance of List<Database.Errors> into a 
+         * list of objects that can be safely serialized.
+         * @param {List<Database.Error>} errs The errors to convert
+         * @return {List<Object>} The result of the conversion.
+         */
         private List<Object> formatDatabaseErrors(List<Database.Error> errs) {
             List<Object> output = new List<Object>();
 
