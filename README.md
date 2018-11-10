@@ -182,6 +182,63 @@ Adds SObject data to the log under a specified key and excludes all fields conta
  logger.withSObject('sobject', c, new Set<String> { 'Email' }).info('inserted contact');
 ```
 
+### ForceLog.Logger withSObjects(Map<String, SObject> sobjects)
+
+Adds multiple SObjects to the log, each with their own key.
+
+```apex
+ ForceLog.Logger log = new ForceLog.Logger('myClassName');
+
+ Contact c = new Contact(
+    FirstName = 'tester',
+    LastName = 'mctest',
+    Email = 'test@test.com'
+ );
+
+ Account a = new Account(
+    Name = 'account'  
+ );
+
+ insert c;
+ insert a;
+
+ logger.withSObjects(new Map<String, SObject> {
+     'contact' => c,
+     'account' => a
+ }).info('inserted contact and account');
+```
+
+### ForceLog.Logger withSObjects(Map<String, SObject> sobjects, Set<String> excludeFields)
+
+Adds multiple SObjects to the log, each with their own key. Removes fields from SObjects whose
+API names match any in the 'excludeFields' parameter. You would want to use this method to
+avoid placing sensitive information in your logs.
+
+```apex
+ ForceLog.Logger log = new ForceLog.Logger('myClassName');
+
+ Contact c = new Contact(
+    FirstName = 'tester',
+    LastName = 'mctest',
+    Email = 'test@test.com'
+ );
+
+ Account a = new Account(
+    Name = 'account'  
+ );
+
+ insert c;
+ insert a;
+
+ logger.withSObjects(new Map<String, SObject> {
+     'contact' => c,
+     'account' => a
+ }, new Set<String> { 
+     'FirstName',
+     'LastName'
+ }).info('inserted contact and account');
+```
+
 ### ForceLog.Logger withException(Exception ex)
 
 Adds exception data to the log. Will add the message, type, stack trace and line number to the logging output. If the exception has a cause these will be recursively added under the `exception_cause` field.
