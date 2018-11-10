@@ -15,7 +15,7 @@ public with sharing class ForceLog {
     /**
      * @description Supported log levels.
      */
-    public enum Level {
+    private enum Level {
         DEBUG,
         INFO,
         WARNING,
@@ -314,6 +314,160 @@ public with sharing class ForceLog {
             this.fields.put(name, responseFields);
 
             return this;
+        }
+
+        /**
+         * @description Adds a single instance of Database.SaveResult to the log
+         * @param {Database.SaveResult} res The database result to log
+         * @returns {Logger} The current instance of the logger, for method chaining.
+         */
+        public Logger withResult(Database.SaveResult res) {
+            return this.withResult('result', res);
+        }
+
+        /**
+         * @description Adds a single instance of Database.DeleteResult to the log
+         * @param {Database.DeleteResult} res The database result to log
+         * @returns {Logger} The current instance of the logger, for method chaining.
+         */
+        public Logger withResult(Database.DeleteResult res) {
+            return this.withResult('result', res);
+        }
+
+        /**
+         * @description Adds a single instance of Database.UpsertResult to the log
+         * @param {Database.UpsertResult} res The database result to log
+         * @returns {Logger} The current instance of the logger, for method chaining.
+         */
+        public Logger withResult(Database.UpsertResult res) {
+            return this.withResult('result', res);
+        }
+
+        /**
+         * @description Adds a single instance of Database.DeleteResult to the log under
+         * a given key
+         * @param {String} key The key where the save result will be nested in the log.
+         * @param {Database.DeleteResult} res The database result to log
+         * @returns {Logger} The current instance of the logger, for method chaining.
+         */
+        public Logger withResult(String key, Database.DeleteResult res) {
+            Map<String, Object> entry = new Map<String, Object>{
+                'id' => res.getId(),
+                'success' => res.isSuccess(),
+                'errors' => this.formatDatabaseErrors(res.getErrors()),
+                'type' => 'delete'
+            };
+
+            return this.withField(key, entry);
+        }
+
+        /**
+         * @description Adds a single instance of Database.SaveResult to the log under
+         * a given key
+         * @param {String} key The key where the save result will be nested in the log.
+         * @param {Database.SaveResult} res The database result to log
+         * @returns {Logger} The current instance of the logger, for method chaining.
+         */
+        public Logger withResult(String key, Database.SaveResult res) {
+            Map<String, Object> entry = new Map<String, Object>{
+                'id' => res.getId(),
+                'success' => res.isSuccess(),
+                'errors' => this.formatDatabaseErrors(res.getErrors()),
+                'type' => 'save'
+            };
+
+            return this.withField(key, entry);
+        }
+
+        /**
+         * @description Adds a single instance of Database.UpsertResult to the log under
+         * a given key
+         * @param {String} key The key where the save result will be nested in the log.
+         * @param {Database.UpsertResult} res The database result to log
+         * @returns {Logger} The current instance of the logger, for method chaining.
+         */
+        public Logger withResult(String key, Database.UpsertResult res) {
+            Map<String, Object> entry = new Map<String, Object>{
+                'id' => res.getId(),
+                'success' => res.isSuccess(),
+                'errors' => this.formatDatabaseErrors(res.getErrors()),
+                'created' => res.isCreated(),
+                'type' => 'upsert'
+            };
+
+            return this.withField(key, entry);
+        }
+
+        public Logger withResults(List<Database.SaveResult> results) {
+            return this.withResults('results', results);
+        }
+
+        public Logger withResults(List<Database.UpsertResult> results) {
+            return this.withResults('results', results);
+        }
+
+        public Logger withResults(List<Database.DeleteResult> results) {
+            return this.withResults('results', results);
+        }
+
+        public Logger withResults(String key, List<Database.SaveResult> results) {
+            List<Object> entry = new List<Object>();
+
+            for (Database.SaveResult res : results) {
+                entry.Add(new Map<String, Object>{
+                    'id' => res.getId(),
+                    'success' => res.isSuccess(),
+                    'errors' => this.formatDatabaseErrors(res.getErrors()),
+                    'type' => 'save'
+                });           
+            }
+
+            return this.withField(key, entry);
+        }
+
+        public Logger withResults(String key, List<Database.UpsertResult> results) {
+            List<Object> entry = new List<Object>();
+
+            for (Database.UpsertResult res : results) {
+                entry.Add(new Map<String, Object>{
+                    'id' => res.getId(),
+                    'success' => res.isSuccess(),
+                    'errors' => this.formatDatabaseErrors(res.getErrors()),
+                    'type' => 'upsert',
+                    'created' => res.isCreated()
+                });           
+            }
+
+            return this.withField(key, entry);
+        }
+
+        public Logger withResults(String key, List<Database.DeleteResult> results) {
+            List<Object> entry = new List<Object>();
+
+            for (Database.DeleteResult res : results) {
+                entry.Add(new Map<String, Object>{
+                    'id' => res.getId(),
+                    'success' => res.isSuccess(),
+                    'errors' => this.formatDatabaseErrors(res.getErrors()),
+                    'type' => 'delete'
+                });           
+            }
+
+            return this.withField(key, entry);
+        }
+
+        private List<Object> formatDatabaseErrors(List<Database.Error> errs) {
+            List<Object> output = new List<Object>();
+
+            for (Database.Error err : errs) {
+                output.add(new Map<String, Object> {
+                    'fields' => err.getFields(),
+                    'message' => err.getMessage(),
+                    'code' => err.getStatusCode()
+                });
+            }
+
+            return output;
         }
 
         /**
