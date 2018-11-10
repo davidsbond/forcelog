@@ -108,19 +108,7 @@ private class ForceLogTest {
             )
         };
 
-        logger.expect('sobjects', new List<Object> {
-            new Map<String, Object> {
-                'FirstName' => 'tester',
-                'LastName' => 'mctest',
-                'Email' => 'unit@test.com'
-            },
-            new Map<String, Object> {
-                'FirstName' => 'testly',
-                'LastName' => 'mctest',
-                'Email' => 'unit@test.com'
-            }
-        });
-
+        logger.expect('sobjects', objs);
         logger.expect('level', 'info');
         logger.expect('message', 'test');
         logger.expect('timestamp', '*');
