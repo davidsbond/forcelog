@@ -5,7 +5,7 @@
  * of your choosing by implementing the flush() method.
  * @author David Bond <davidsbond93@gmail.com>
  */
-global with sharing class ForceLog {
+public with sharing class ForceLog {
     /**
      * @description Exception thrown when a reserved field name is
      * provided to the withField() method.
@@ -26,22 +26,22 @@ global with sharing class ForceLog {
     /**
      * @description SError message for a reserved field.
      */
-    private static String RESERVED_FIELD_ERROR = 'Field name "{0}" is reserved';
+    private static final String RESERVED_FIELD_ERROR = 'Field name "{0}" is reserved';
 
     /**
      * @description SError message for a reserved field used by withException().
      */
-    private static String RESERVED_EXCEPTION_FIELD_ERROR = 'Field name "{0}" is reserved, use withException() instead';
+    private static final String RESERVED_EXCEPTION_FIELD_ERROR = 'Field name "{0}" is reserved, use withException() instead';
 
     /**
      * @description SError message for a reserved field used by withRequest().
      */
-    private static String RESERVED_REQUEST_FIELD_ERROR = 'Field name "{0}" is reserved, use withRequest() instead';
+    private static final String RESERVED_REQUEST_FIELD_ERROR = 'Field name "{0}" is reserved, use withRequest() instead';
 
     /**
      * @description SError message for a reserved field used by withResponse().
      */
-    private static String RESERVED_RESPONSE_FIELD_ERROR = 'Field name "{0}" is reserved, use withResponse() instead';
+    private static final String RESERVED_RESPONSE_FIELD_ERROR = 'Field name "{0}" is reserved, use withResponse() instead';
 
     /**
      * @description Map of reserved field names and their error messages.
