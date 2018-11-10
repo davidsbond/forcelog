@@ -105,7 +105,7 @@ private class ForceLogTest {
                 FirstName = 'testly',
                 LastName = 'mctest',
                 Email = 'unit@test.com'
-            ),
+            )
         };
 
         logger.expect('sobjects', new List<Object> {
@@ -143,7 +143,7 @@ private class ForceLogTest {
                 FirstName = 'testly',
                 LastName = 'mctest',
                 Email = 'unit@test.com'
-            ),
+            )
         };
 
         logger.expect('sobjects', new List<Object> {
