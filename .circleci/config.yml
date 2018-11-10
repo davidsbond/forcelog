@@ -47,7 +47,7 @@ jobs:
               - pmd-bin-6.0.1
       - run:
           name: Run static analysis
-          command: pmd-bin-6.0.1/bin/run.sh pmd -d . -R .pmd/ruleset.xml -f text -l apex
+          command: pmd-bin-6.0.1/bin/run.sh pmd -d . -R pmd.xml -f text -l apex
 
 workflows:
   version: 2
