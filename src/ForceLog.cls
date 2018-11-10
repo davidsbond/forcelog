@@ -204,12 +204,7 @@ public with sharing class ForceLog {
          * @return {Logger} The current instance of the logger, for method chaining.
          */
         public Logger withSObject(String key, SObject obj) {
-            Map<String, Object> entry = new Map<String, Object> {
-                key => obj.getPopulatedFieldsAsMap()
-            };
-
-            this.withFields(entry);
-            return this;
+            return this.withField(key, obj);
         }
 
         /**
@@ -234,25 +229,7 @@ public with sharing class ForceLog {
                 values.put(field, objMap.get(field));
             }
 
-            Map<String, Object> entry = new Map<String, Object> {
-                key => values
-            };
-
-            this.withFields(entry);
-            return this;
-        }
-
-        /**
-         * @description Adds a key-value map of SObjects to the logging output
-         * @param {Map<String, SObject>} sobjects The map of SObjects to add to the log
-         * @return {Logger} The current instance of the logger, for method chaining.
-         */
-        public Logger withSObjects(Map<String, SObject> sobjects) {
-            for (String key : sobjects.keySet()) {
-                this.withSObject(key, sobjects.get(key));
-            }
-
-            return this;
+            return this.withField(key, values);
         }
 
         /**
@@ -292,20 +269,6 @@ public with sharing class ForceLog {
             }
 
             return this.withField(key, values);
-        }
-
-        /**
-         * @description Adds a key-value map of SObjects to the logging output
-         * @param {Map<String, SObject>} sobjects The map of SObjects to add to the log.
-         * @param {Set<String>} excludeFields SObject fields to remove from the log.
-         * @return {Logger} The current instance of the logger, for method chaining.
-         */
-        public Logger withSObjects(Map<String, SObject> sobjects, Set<String> excludeFields) {
-            for (String key : sobjects.keySet()) {
-                this.withSObject(key, sobjects.get(key), excludeFields);
-            }
-
-            return this;
         }
 
          /**

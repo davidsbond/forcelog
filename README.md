@@ -182,60 +182,57 @@ Adds SObject data to the log under a specified key and excludes all fields conta
  logger.withSObject('sobject', c, new Set<String> { 'Email' }).info('inserted contact');
 ```
 
-### ForceLog.Logger withSObjects(Map<String, SObject> sobjects)
+### ForceLog.Logger withSObjects(String key, List<SObject> sobjects)
 
-Adds multiple SObjects to the log, each with their own key.
+Adds multiple SObjects to the log under a provided key.
 
 ```apex
  ForceLog.Logger log = new ForceLog.Logger('myClassName');
 
- Contact c = new Contact(
-    FirstName = 'tester',
-    LastName = 'mctest',
-    Email = 'test@test.com'
- );
+ List<SObject> objs = new List<SObject> {
+     new Contact(
+         FirstName = 'tester',
+         LastName = 'mctest',
+         Email = 'unit@test.com'
+     ),
+     new Contact(
+         FirstName = 'testly',
+         LastName = 'mctest',
+         Email = 'unit@test.com'
+     )
+ };
 
- Account a = new Account(
-    Name = 'account'  
- );
+ insert objs;
 
- insert c;
- insert a;
-
- logger.withSObjects(new Map<String, SObject> {
-     'contact' => c,
-     'account' => a
- }).info('inserted contact and account');
+ logger.withSObjects('sobjects', objs).info('inserted contact and account');
 ```
 
-### ForceLog.Logger withSObjects(Map<String, SObject> sobjects, Set<String> excludeFields)
+### ForceLog.Logger withSObjects(String key, List<SObject> sobjects, Set<String> excludeFields)
 
-Adds multiple SObjects to the log, each with their own key. Removes fields from SObjects whose
+Adds multiple SObjects to the log, under a given key. Removes fields from SObjects whose
 API names match any in the 'excludeFields' parameter. You would want to use this method to
 avoid placing sensitive information in your logs.
 
 ```apex
  ForceLog.Logger log = new ForceLog.Logger('myClassName');
 
- Contact c = new Contact(
-    FirstName = 'tester',
-    LastName = 'mctest',
-    Email = 'test@test.com'
- );
+ List<SObject> objs = new List<SObject> {
+     new Contact(
+         FirstName = 'tester',
+         LastName = 'mctest',
+         Email = 'unit@test.com'
+     ),
+     new Contact(
+         FirstName = 'testly',
+         LastName = 'mctest',
+         Email = 'unit@test.com'
+     )
+ };
 
- Account a = new Account(
-    Name = 'account'  
- );
+ insert objs;
 
- insert c;
- insert a;
-
- logger.withSObjects(new Map<String, SObject> {
-     'contact' => c,
-     'account' => a
- }, new Set<String> { 
-     'FirstName',
-     'LastName'
+ logger.withSObjects('sobjects', objs, new Set<String> {
+     'FirstName', 'LastName'
  }).info('inserted contact and account');
 ```
 

@@ -155,75 +155,6 @@ private class ForceLogTest {
     }
 
     @isTest
-    private static void itShouldExcludeFieldsForMultipleSObjects() {
-        TestLogger logger = new TestLogger('test');
-
-        Contact c = new Contact(
-            FirstName = 'tester',
-            LastName = 'mctest',
-            Email = 'unit@test.com'
-        );
-
-        Account a = new Account(
-            Name = 'test'
-        );
-
-        logger.expect('account', new Map<String, Object>{
-            'Name' => 'test'
-        });
-
-        logger.expect('contact', new Map<String, Object> {
-            'LastName' => 'mctest',
-            'Email' => 'unit@test.com'
-        });
-
-        logger.expect('level', 'info');
-        logger.expect('message', 'test');
-        logger.expect('timestamp', '*');
-        logger.expect('name', 'test');
-
-        logger.withSObjects(new Map<String, SObject> {
-            'account' => a,
-            'contact' => c
-        }, new Set<String> { 'FirstName' }).info('test');
-    }
-
-    @isTest
-    private static void itShouldAddMultipleSObjects() {
-        TestLogger logger = new TestLogger('test');
-
-        Contact c = new Contact(
-            FirstName = 'tester',
-            LastName = 'mctest',
-            Email = 'unit@test.com'
-        );
-
-        Account a = new Account(
-            Name = 'test'
-        );
-
-        logger.expect('account', new Map<String, Object>{
-            'Name' => 'test'
-        });
-
-        logger.expect('contact', new Map<String, Object> {
-            'FirstName' => 'tester',
-            'LastName' => 'mctest',
-            'Email' => 'unit@test.com'
-        });
-
-        logger.expect('level', 'info');
-        logger.expect('message', 'test');
-        logger.expect('timestamp', '*');
-        logger.expect('name', 'test');
-
-        logger.withSObjects(new Map<String, SObject> {
-            'account' => a,
-            'contact' => c
-        }).info('test');
-    }
-
-    @isTest
     private static void itShouldAddSObjectDetails() {
         TestLogger logger = new TestLogger('test');
         Contact c = new Contact(
@@ -234,11 +165,7 @@ private class ForceLogTest {
 
         logger.expect('level', 'info');
         logger.expect('message', 'test');
-        logger.expect('sobject', new Map<String, Object> {
-            'FirstName' => 'tester',
-            'LastName' => 'mctest',
-            'Email' => 'unit@test.com'
-        });
+        logger.expect('sobject', c);
         logger.expect('timestamp', '*');
         logger.expect('name', 'test');
 
