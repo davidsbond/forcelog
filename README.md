@@ -266,6 +266,99 @@ avoid placing sensitive information in your logs.
  }).info('inserted contact and account');
 ```
 
+### ForceLog.Logger withResult([Database.SaveResult, Database.UpsertResult, Database.DeleteResult] res)
+
+Adds a single intance of `Database.SaveResult`, `Database.UpsertResult` or `Database.DeleteResult` to the log. It
+outputs all relevant fields for each type and includes all errors.
+
+```apex
+ ForceLog.Logger log = new ForceLog.Logger('myClassName');
+
+ Contact c = new Contact(
+    FirstName = 'testly',
+    LastName = 'mctest',
+    Email = 'unit@test.com'
+ );
+
+ Database.SaveResult r = Database.insert(c);
+
+ logger.withResult(r).info('inserted contact');
+```
+
+### ForceLog.Logger withResult(String key, [Database.SaveResult, Database.UpsertResult, Database.DeleteResult] res)
+
+Adds a single intance of `Database.SaveResult`, `Database.UpsertResult` or `Database.DeleteResult` to the log. It
+outputs all relevant fields for each type and includes all errors. The result information is nessted under the
+provided key
+
+```apex
+ ForceLog.Logger log = new ForceLog.Logger('myClassName');
+
+ Contact c = new Contact(
+    FirstName = 'testly',
+    LastName = 'mctest',
+    Email = 'unit@test.com'
+ );
+
+ Database.SaveResult r = Database.insert(c);
+
+ logger.withResult('save_result', r).info('inserted contact');
+```
+
+### ForceLog.Logger withResults(List<[Database.SaveResult, Database.UpsertResult, Database.DeleteResult]> results)
+
+Adds a list of `Database.SaveResult`, `Database.UpsertResult` or `Database.DeleteResult` to the log. It
+outputs all relevant fields for each type and includes all errors.
+
+```apex
+ ForceLog.Logger log = new ForceLog.Logger('myClassName');
+
+ List<SObject> objs = new List<SObject> {
+     new Contact(
+         FirstName = 'tester',
+         LastName = 'mctest',
+         Email = 'unit@test.com'
+     ),
+     new Contact(
+         FirstName = 'testly',
+         LastName = 'mctest',
+         Email = 'unit@test.com'
+     )
+ };
+
+ List<Database.SaveResult> rs = Database.insert(objs);
+
+ logger.withResults(rs).info('inserted contact');
+```
+
+
+### ForceLog.Logger withResults(String key, List<[Database.SaveResult, Database.UpsertResult, Database.DeleteResult]> results)
+
+Adds a list of `Database.SaveResult`, `Database.UpsertResult` or `Database.DeleteResult` to the log. It
+outputs all relevant fields for each type and includes all errors. The results are nested under the
+provided key.
+
+```apex
+ ForceLog.Logger log = new ForceLog.Logger('myClassName');
+
+ List<SObject> objs = new List<SObject> {
+     new Contact(
+         FirstName = 'tester',
+         LastName = 'mctest',
+         Email = 'unit@test.com'
+     ),
+     new Contact(
+         FirstName = 'testly',
+         LastName = 'mctest',
+         Email = 'unit@test.com'
+     )
+ };
+
+ List<Database.SaveResult> rs = Database.insert(objs);
+
+ logger.withResults('save_results', rs).info('inserted contact');
+```
+
 ### ForceLog.Logger withException(Exception ex)
 
 Adds exception data to the log. Will add the message, type, stack trace and line number to the logging output. If the exception has a cause these will be recursively added under the `exception_cause` field.
