@@ -55,10 +55,6 @@
       <property name="problemDepth" value="4" />
     </properties>
   </rule>
-  <rule ref="category/apex/design.xml/CyclomaticComplexity">
-    <priority>3</priority>
-    <properties />
-  </rule>
     <rule ref="category/apex/performance.xml/AvoidSoqlInLoops" message="Avoid Soql queries inside loops">
     <priority>3</priority>
     <properties />
