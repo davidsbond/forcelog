@@ -41,7 +41,7 @@ private class ForceLogTest {
     private static void itShouldProduceErrorLogs() {
         TestLogger logger = new TestLogger('test');
 
-        logger.expect('level', 'error');
+        logger.expect('level', 'err');
         logger.expect('message', 'test');
         logger.expect('timestamp', '*');
         logger.expect('name', 'test');
@@ -233,7 +233,7 @@ private class ForceLogTest {
     private static void itShouldAddExceptionDetails() {
         TestLogger logger = new TestLogger('test');
 
-        logger.expect('level', 'error');
+        logger.expect('level', 'err');
         logger.expect('message', 'test');
         logger.expect('exception_message', 'test');
         logger.expect('exception_type', '*');
@@ -248,7 +248,7 @@ private class ForceLogTest {
     @isTest
     private static void itShouldAddExceptionCauses() {
         TestLogger logger = new TestLogger('test');
-        logger.expect('level', 'error');
+        logger.expect('level', 'err');
         logger.expect('message', 'test');
         logger.expect('exception_message', 'test');
         logger.expect('exception_type', '*');
@@ -468,7 +468,7 @@ private class ForceLogTest {
     private static void itShouldAddHttpRequestDetails() {
         TestLogger logger = new TestLogger('test');
 
-        logger.expect('level', 'error');
+        logger.expect('level', 'err');
         logger.expect('message', 'test');
         logger.expect('request', new Map<String, Object> {
             'body' => '',
@@ -488,7 +488,7 @@ private class ForceLogTest {
     private static void itShouldAddHttpRequestDetailsWithName() {
         TestLogger logger = new TestLogger('test');
 
-        logger.expect('level', 'error');
+        logger.expect('level', 'err');
         logger.expect('message', 'test');
         logger.expect('test_request', new Map<String, Object> {
             'body' => '',
@@ -508,7 +508,7 @@ private class ForceLogTest {
     private static void itShouldAddHttpResponseDetails() {
         TestLogger logger = new TestLogger('test');
 
-        logger.expect('level', 'error');
+        logger.expect('level', 'err');
         logger.expect('message', 'test');
         logger.expect('response', new Map<String, Object> {
             'body' => '',
@@ -527,7 +527,7 @@ private class ForceLogTest {
     private static void itShouldIncludeHttpRequestHeaders() {
         TestLogger logger = new TestLogger('test');
 
-        logger.expect('level', 'error');
+        logger.expect('level', 'err');
         logger.expect('message', 'test');
         logger.expect('test_request', new Map<String, Object> {
             'body' => '',
@@ -552,7 +552,7 @@ private class ForceLogTest {
     private static void itShouldAddHttpResponseDetailsWithName() {
         TestLogger logger = new TestLogger('test');
 
-        logger.expect('level', 'error');
+        logger.expect('level', 'err');
         logger.expect('message', 'test');
         logger.expect('test_response', new Map<String, Object> {
             'body' => '',
@@ -571,7 +571,7 @@ private class ForceLogTest {
     private static void itShouldExcludeHttpResponseHeaders() {
         TestLogger logger = new TestLogger('test');
 
-        logger.expect('level', 'error');
+        logger.expect('level', 'err');
         logger.expect('message', 'test');
         logger.expect('test_response', new Map<String, Object> {
             'body' => '',
