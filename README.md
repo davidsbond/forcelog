@@ -94,7 +94,7 @@ Writes a `warning` log containing the provided message.
 
 ### void error(String message)
 
-Writes an `error` log containing the provided message.
+Writes an `err` log containing the provided message.
 
 ```apex
  ForceLog.Logger log = new ForceLog.Logger('myClassName');
@@ -102,9 +102,39 @@ Writes an `error` log containing the provided message.
  log.error('error information');
 ```
 
-### void panic(String message)
+### void critical(String message)
 
-Writes a `panic` log containing the provided message.
+Writes a `crit` log containing the provided message.
+
+```apex
+ ForceLog.Logger log = new ForceLog.Logger('myClassName');
+
+ log.panic('panic information');
+```
+
+### void emergency(String message)
+
+Writes an `emerg` log containing the provided message.
+
+```apex
+ ForceLog.Logger log = new ForceLog.Logger('myClassName');
+
+ log.panic('panic information');
+```
+
+### void notice(String message)
+
+Writes a `notice` log containing the provided message.
+
+```apex
+ ForceLog.Logger log = new ForceLog.Logger('myClassName');
+
+ log.panic('panic information');
+```
+
+### void alert(String message)
+
+Writes a `alert` log containing the provided message.
 
 ```apex
  ForceLog.Logger log = new ForceLog.Logger('myClassName');

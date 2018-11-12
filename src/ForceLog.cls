@@ -16,14 +16,14 @@ public with sharing class ForceLog {
      * @description Supported log levels.
      */
     private enum Level {
+        ALERT,
+        CRIT,
         DEBUG,
-        INFO,
-        WARNING,
         ERR,
         EMERG,
+        INFO,
         NOTICE,
-        CRIT,
-        ALERT
+        WARNING
     }
 
     /**
