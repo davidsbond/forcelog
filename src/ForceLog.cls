@@ -16,11 +16,14 @@ public with sharing class ForceLog {
      * @description Supported log levels.
      */
     private enum Level {
+        ALERT,
+        CRIT,
         DEBUG,
+        ERR,
+        EMERG,
         INFO,
-        WARNING,
-        ERROR,
-        PANIC
+        NOTICE,
+        WARNING
     }
 
     /**
@@ -111,6 +114,26 @@ public with sharing class ForceLog {
         }
 
         /**
+         * @description Creates a notice log containing
+         * the given message.
+         * @param {String} message The notice message
+         * @return {void}
+         */
+        public void notice(String message) {
+            this.write(message, Level.NOTICE);
+        }
+
+        /**
+         * @description Creates an alert log containing
+         * the given message.
+         * @param {String} message The alert message
+         * @return {void}
+         */
+        public void alert(String message) {
+            this.write(message, Level.ALERT);
+        }
+
+        /**
          * @description Creates a warning log containing
          * the given message.
          * @param {String} message The warning message
@@ -127,17 +150,27 @@ public with sharing class ForceLog {
          * @return {void}
          */
         public void error(String message) {
-            this.write(message, Level.ERROR);
+            this.write(message, Level.ERR);
         }
 
         /**
-         * @description Creates a panic log containing
+         * @description Creates an emergency log containing
          * the given message.
-         * @param {String} message The panic message
+         * @param {String} message The emergency message
          * @return {void}
          */
-        public void panic(String message) {
-            this.write(message, Level.PANIC);
+        public void emergency(String message) {
+            this.write(message, Level.EMERG);
+        }
+
+        /**
+         * @description Creates a critical log containing
+         * the given message.
+         * @param {String} message The critical message
+         * @return {void}
+         */
+        public void critical(String message) {
+            this.write(message, Level.CRIT);
         }
 
         /**
