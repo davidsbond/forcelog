@@ -109,7 +109,7 @@ Writes a `crit` log containing the provided message.
 ```apex
  ForceLog.Logger log = new ForceLog.Logger('myClassName');
 
- log.panic('panic information');
+ log.critical('critical information');
 ```
 
 ### void emergency(String message)
@@ -119,7 +119,7 @@ Writes an `emerg` log containing the provided message.
 ```apex
  ForceLog.Logger log = new ForceLog.Logger('myClassName');
 
- log.panic('panic information');
+ log.emergency('emergency information');
 ```
 
 ### void notice(String message)
@@ -129,7 +129,7 @@ Writes a `notice` log containing the provided message.
 ```apex
  ForceLog.Logger log = new ForceLog.Logger('myClassName');
 
- log.panic('panic information');
+ log.notice('notice information');
 ```
 
 ### void alert(String message)
@@ -139,7 +139,7 @@ Writes a `alert` log containing the provided message.
 ```apex
  ForceLog.Logger log = new ForceLog.Logger('myClassName');
 
- log.panic('panic information');
+ log.alert('alert information');
 ```
 
 ### ForceLog.Logger withField(String key, Object value)
