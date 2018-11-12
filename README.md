@@ -2,6 +2,7 @@
 
 ForceLog is a structured logger for Salesforce Apex that is extensible to suit various log formats and providers. It provides two loggers, `ForceLog.Logger` (for handling logs on an individual level) and `ForceLog.BulkLogger` (for handling logs in bulk).
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![CircleCI](https://circleci.com/gh/davidsbond/forcelog/tree/master.svg?style=shield)](https://circleci.com/gh/davidsbond/forcelog/tree/master)
 
 ## ForceLog.Logger Example
@@ -143,6 +144,96 @@ Adds multiple fields to the log. Will throw a `ReservedFieldException` when usin
      'id' => '12345',
      'contact' => 'John Smith'
  }).info('got contact');
+```
+
+### ForceLog.Logger withSObject(String key, SObject obj)
+
+Adds SObject data to the log under a specified key.
+
+```apex
+ ForceLog.Logger log = new ForceLog.Logger('myClassName');
+
+ Contact c = new Contact(
+    FirstName = 'tester',
+    LastName = 'mctest',
+    Email = 'test@test.com'
+ );
+
+ insert c;
+
+ logger.withSObject('sobject', c).info('inserted contact');
+```
+
+### ForceLog.Logger withSObject(String key, SObject obj, Set<String> excludeFields)
+
+Adds SObject data to the log under a specified key and excludes all fields contained within the 'excludeFields' parameter.
+
+```apex
+ ForceLog.Logger log = new ForceLog.Logger('myClassName');
+
+ Contact c = new Contact(
+    FirstName = 'tester',
+    LastName = 'mctest',
+    Email = 'test@test.com'
+ );
+
+ insert c;
+
+ logger.withSObject('sobject', c, new Set<String> { 'Email' }).info('inserted contact');
+```
+
+### ForceLog.Logger withSObjects(String key, List<SObject> sobjects)
+
+Adds multiple SObjects to the log under a provided key.
+
+```apex
+ ForceLog.Logger log = new ForceLog.Logger('myClassName');
+
+ List<SObject> objs = new List<SObject> {
+     new Contact(
+         FirstName = 'tester',
+         LastName = 'mctest',
+         Email = 'unit@test.com'
+     ),
+     new Contact(
+         FirstName = 'testly',
+         LastName = 'mctest',
+         Email = 'unit@test.com'
+     )
+ };
+
+ insert objs;
+
+ logger.withSObjects('sobjects', objs).info('inserted contact and account');
+```
+
+### ForceLog.Logger withSObjects(String key, List<SObject> sobjects, Set<String> excludeFields)
+
+Adds multiple SObjects to the log, under a given key. Removes fields from SObjects whose
+API names match any in the 'excludeFields' parameter. You would want to use this method to
+avoid placing sensitive information in your logs.
+
+```apex
+ ForceLog.Logger log = new ForceLog.Logger('myClassName');
+
+ List<SObject> objs = new List<SObject> {
+     new Contact(
+         FirstName = 'tester',
+         LastName = 'mctest',
+         Email = 'unit@test.com'
+     ),
+     new Contact(
+         FirstName = 'testly',
+         LastName = 'mctest',
+         Email = 'unit@test.com'
+     )
+ };
+
+ insert objs;
+
+ logger.withSObjects('sobjects', objs, new Set<String> {
+     'FirstName', 'LastName'
+ }).info('inserted contact and account');
 ```
 
 ### ForceLog.Logger withException(Exception ex)
