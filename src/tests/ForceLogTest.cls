@@ -127,6 +127,206 @@ private class ForceLogTest {
     }
 
     @isTest
+    private static void itShouldAddUpsertResult() {
+        TestLogger logger = new TestLogger('test');
+
+        Contact c = new Contact(
+            FirstName = 'tester',
+            LastName = 'mctest',
+            Email = 'unit@test.com'
+        );
+
+        Database.UpsertResult result = Database.upsert(c);
+
+        logger.expect('level', 'info');
+        logger.expect('message', 'test');
+        logger.expect('result', new Map<String, Object> {
+            'id' => result.getId(),
+            'success' => result.isSuccess(),
+            'errors' => new List<Object>(),
+            'created' => result.isCreated(),
+            'type' => 'upsert'
+        });
+        logger.expect('timestamp', '*');
+        logger.expect('name', 'test');
+
+        logger.withResult(result).info('test');        
+    }
+
+    @isTest
+    private static void itShouldAddUpsertResults() {
+        TestLogger logger = new TestLogger('test');
+
+        List<Contact> contacts = new List<Contact> {
+            new Contact(
+                FirstName = 'tester',
+                LastName = 'mctest',
+                Email = 'unit@test.com'
+            )
+        };
+
+        List<Database.UpsertResult> results = Database.upsert(contacts);
+
+        logger.expect('level', 'info');
+        logger.expect('message', 'test');
+        logger.expect('results', new List<Object>{
+            new Map<String, Object> {
+                'id' => results.get(0).getId(),
+                'success' => results.get(0).isSuccess(),
+                'errors' => new List<Object>(),
+                'created' => results.get(0).isCreated(),
+                'type' => 'upsert'
+            }
+        });
+        logger.expect('timestamp', '*');
+        logger.expect('name', 'test');
+
+        logger.withResults(results).info('test');        
+    }
+
+    @isTest
+    private static void itShouldAddDeleteResult() {
+        TestLogger logger = new TestLogger('test');
+
+        Contact c = new Contact(
+            FirstName = 'tester',
+            LastName = 'mctest',
+            Email = 'unit@test.com'
+        );
+
+        insert c;
+        Database.DeleteResult result = Database.delete(c);
+
+        logger.expect('level', 'info');
+        logger.expect('message', 'test');
+        logger.expect('result', new Map<String, Object> {
+            'id' => result.getId(),
+            'success' => result.isSuccess(),
+            'errors' => new List<Object>(),
+            'type' => 'delete'
+        });
+        logger.expect('timestamp', '*');
+        logger.expect('name', 'test');
+
+        logger.withResult(result).info('test');        
+    }
+
+    @isTest
+    private static void itShouldAddDeleteResults() {
+        TestLogger logger = new TestLogger('test');
+
+        List<Contact> contacts = new List<Contact> {
+            new Contact(
+                FirstName = 'tester',
+                LastName = 'mctest',
+                Email = 'unit@test.com'
+            )
+        };
+
+        insert contacts;
+        List<Database.DeleteResult> results = Database.delete(contacts);
+
+        logger.expect('level', 'info');
+        logger.expect('message', 'test');
+        logger.expect('results', new List<Object>{
+            new Map<String, Object> {
+                'id' => results.get(0).getId(),
+                'success' => results.get(0).isSuccess(),
+                'errors' => new List<Object>(),
+                'type' => 'delete'
+            }
+        });
+        logger.expect('timestamp', '*');
+        logger.expect('name', 'test');
+
+        logger.withResults(results).info('test');        
+    }
+
+    @isTest
+    private static void itShouldAddDatabaseErrors() {
+        TestLogger logger = new TestLogger('test');
+
+        Contact c = new Contact();
+
+        Database.SaveResult result = Database.insert(c, false);
+
+        logger.expect('level', 'info');
+        logger.expect('message', 'test');
+        logger.expect('result', new Map<String, Object> {
+            'id' => result.getId(),
+            'success' => result.isSuccess(),
+            'errors' => new List<Object>{
+                new Map<String, Object> {
+                    'fields' => result.getErrors().get(0).getFields(),
+                    'message' => result.getErrors().get(0).getMessage(),
+                    'code' => result.getErrors().get(0).getStatusCode()
+                }
+            },
+            'type' => 'save'
+        });
+        logger.expect('timestamp', '*');
+        logger.expect('name', 'test');
+
+        logger.withResult(result).info('test');        
+    }
+
+    @isTest
+    private static void itShouldAddSaveResults() {
+        TestLogger logger = new TestLogger('test');
+
+        List<Contact> contacts = new List<Contact> {
+            new Contact(
+                FirstName = 'tester',
+                LastName = 'mctest',
+                Email = 'unit@test.com'
+            )
+        };
+
+        List<Database.SaveResult> results = Database.insert(contacts);
+
+        logger.expect('level', 'info');
+        logger.expect('message', 'test');
+        logger.expect('results', new List<Object>{
+            new Map<String, Object> {
+                'id' => results.get(0).getId(),
+                'success' => results.get(0).isSuccess(),
+                'errors' => new List<Object>(),
+                'type' => 'save'
+            }
+        });
+        logger.expect('timestamp', '*');
+        logger.expect('name', 'test');
+
+        logger.withResults(results).info('test');        
+    }
+
+    @isTest
+    private static void itShouldAddSaveResult() {
+        TestLogger logger = new TestLogger('test');
+
+        Contact c = new Contact(
+            FirstName = 'tester',
+            LastName = 'mctest',
+            Email = 'unit@test.com'
+        );
+
+        Database.SaveResult result = Database.insert(c);
+
+        logger.expect('level', 'info');
+        logger.expect('message', 'test');
+        logger.expect('result', new Map<String, Object> {
+            'id' => result.getId(),
+            'success' => result.isSuccess(),
+            'errors' => new List<Object>(),
+            'type' => 'save'
+        });
+        logger.expect('timestamp', '*');
+        logger.expect('name', 'test');
+
+        logger.withResult(result).info('test');        
+    }
+
+    @isTest
     private static void itShouldAddHttpRequestDetails() {
         TestLogger logger = new TestLogger('test');
 
