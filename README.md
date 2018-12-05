@@ -394,7 +394,7 @@ Adds HTTP request data to the log. If no name is supplied it will add it in the 
  log.withRequest('my_request', req, new Set<String> { 'Content-Type' }).info('got request');
 ```
 
-### ForceLog.Logger withRequest([String name,] ResRequest req)
+### ForceLog.Logger withRequest([String name,] RestRequest req)
 
 Adds inbound HTTP request data from `RestContext` to the log. If no name is supplied it will add it in the `request` field.
 
