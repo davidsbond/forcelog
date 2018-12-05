@@ -592,6 +592,62 @@ private class ForceLogTest {
     }
 
     @isTest
+    private static void itShouldAddRestRequestDetailsWith() {
+        TestLogger logger = new TestLogger('test');
+
+        logger.expect('level', 'err');
+        logger.expect('message', 'test');
+        logger.expect('request', new Map<String, Object> {
+            'body' => '{}',
+            'headers' => new Map<String, String> { 'X-Header' => 'test_header' },
+            'method' => 'POST',
+            'params' => new Map<String, String> { 'param' => 'test' },
+            'path' => '/path',
+            'remote_address' => '127.0.0.1',
+            'uri' => '/uri'
+        });
+
+        RestRequest req = new RestRequest();
+        req.requestBody = Blob.valueOf('{}');
+        req.headers.put('X-Header', 'test_header');
+        req.httpMethod = 'POST';
+        req.params.put('param', 'test');
+        req.resourcePath = '/path';
+        req.remoteAddress = '127.0.0.1';
+        req.requestURI = '/uri';
+        
+        logger.withRequest(req).error('test');
+    }
+
+    @isTest
+    private static void itShouldAddRestRequestDetailsWithAName() {
+        TestLogger logger = new TestLogger('test');
+
+        logger.expect('level', 'err');
+        logger.expect('message', 'test');
+        logger.expect('test_request', new Map<String, Object> {
+            'body' => '{}',
+            'headers' => new Map<String, String> { 'X-Header' => 'test_header' },
+            'method' => 'POST',
+            'params' => new Map<String, String> { 'param' => 'test' },
+            'path' => '/path',
+            'remote_address' => '127.0.0.1',
+            'uri' => '/uri'
+        });
+
+        RestRequest req = new RestRequest();
+        req.requestBody = Blob.valueOf('{}');
+        req.headers.put('X-Header', 'test_header');
+        req.httpMethod = 'POST';
+        req.params.put('param', 'test');
+        req.resourcePath = '/path';
+        req.remoteAddress = '127.0.0.1';
+        req.requestURI = '/uri';
+        
+        logger.withRequest('test_request', req).error('test');
+    }
+
+    @isTest
     private static void itShouldNotAllowReservedNames() {
         TestLogger logger = new TestLogger('test');
 

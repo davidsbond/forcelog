@@ -304,7 +304,7 @@ public with sharing class ForceLog {
             return this.withField(key, values);
         }
 
-         /**
+        /**
          * @description Adds HttpRequest data to the log.
          * @param {HttpRequest} req The HttpRequest to log.
          * @return {Logger} The current instance of the logger, for method chaining.
@@ -360,6 +360,38 @@ public with sharing class ForceLog {
             }
 
             this.fields.put(name, requestFields);
+
+            return this;
+        }
+
+        /**
+         * @description Adds RestRequest data to the log.
+         * @param {RestRequest} req The RestRequest to log.
+         * @return {Logger} The current instance of the logger, for method chaining.
+         */
+        public Logger withRequest(RestRequest req) {
+            return withRequest('request', req);
+        }
+
+        /**
+         * @description Adds RestRequest data to the log using a defined field name.
+         * @param {String} name The field name.
+         * @param {RestRequest} req The RestRequest to log.
+         * @return {Logger} The current instance of the logger, for method chaining.
+         */
+        public Logger withRequest(String name, RestRequest req) {
+            Map<String, Object> requestFields = new Map<String, Object> {
+                'body' => req.requestBody.toString(),
+                'headers' => req.headers,
+                'method' => req.httpMethod,
+                'params' => req.params,
+                'path' => req.resourcePath,
+                'remote_address' => req.remoteAddress,
+                'uri' => req.requestURI
+            };
+
+            this.fields.put(name, requestFields);
+
             return this;
         }
 
