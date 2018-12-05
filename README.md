@@ -62,79 +62,86 @@ public String getContactNameById(String id) {
 
 Below are all methods exposed by the `ForceLog.Logger` class.
 
-### void debug(String message)
+### void debug(String message [, List<String> formattingArguments])
 
-Writes a `debug` log containing the provided message.
+Writes a `debug` log containing the provided message. If `formattingArguments` is provided then the first argument is treated as a pattern and the second argument for substitution and formatting in the same manner as `apex:outputText` and the Java `MessageFormat` class.
 
 ```apex
  ForceLog.Logger log = new ForceLog.Logger('myClassName');
 
  log.debug('debugging information');
+ log.debug('debugging {0}', new List<String> { 'information' });
 ```
 
-### void info(String message)
+### void info(String message [, List<String> formattingArguments])
 
-Writes an `info` log containing the provided message.
+Writes an `info` log containing the provided message. If `formattingArguments` is provided then the first argument is treated as a pattern and the second argument for substitution and formatting in the same manner as `apex:outputText` and the Java `MessageFormat` class.
 
 ```apex
  ForceLog.Logger log = new ForceLog.Logger('myClassName');
 
  log.info('information');
+ log.info('info{0}', new List<String> { 'rmation' });
 ```
 
-### void warning(String message)
+### void warning(String message [, List<String> formattingArguments])
 
-Writes a `warning` log containing the provided message.
+Writes a `warning` log containing the provided message. If `formattingArguments` is provided then the first argument is treated as a pattern and the second argument for substitution and formatting in the same manner as `apex:outputText` and the Java `MessageFormat` class.
 
 ```apex
  ForceLog.Logger log = new ForceLog.Logger('myClassName');
 
  log.warning('warning information');
+ log.warning('warning {0}', new List<String> { 'information' });
 ```
 
-### void error(String message)
+### void error(String message [, List<String> formattingArguments])
 
-Writes an `err` log containing the provided message.
+Writes an `err` log containing the provided message. If `formattingArguments` is provided then the first argument is treated as a pattern and the second argument for substitution and formatting in the same manner as `apex:outputText` and the Java `MessageFormat` class.
 
 ```apex
  ForceLog.Logger log = new ForceLog.Logger('myClassName');
 
  log.error('error information');
+ log.error('error {0}', new List<String> { 'information' });
 ```
 
-### void critical(String message)
+### void critical(String message [, List<String> formattingArguments])
 
-Writes a `crit` log containing the provided message.
+Writes a `crit` log containing the provided message. If `formattingArguments` is provided then the first argument is treated as a pattern and the second argument for substitution and formatting in the same manner as `apex:outputText` and the Java `MessageFormat` class.
 
 ```apex
  ForceLog.Logger log = new ForceLog.Logger('myClassName');
 
  log.critical('critical information');
+ log.critical('critical {0}', new List<String> { 'information' });
 ```
 
-### void emergency(String message)
+### void emergency(String message [, List<String> formattingArguments])
 
-Writes an `emerg` log containing the provided message.
+Writes an `emerg` log containing the provided message. If `formattingArguments` is provided then the first argument is treated as a pattern and the second argument for substitution and formatting in the same manner as `apex:outputText` and the Java `MessageFormat` class.
 
 ```apex
  ForceLog.Logger log = new ForceLog.Logger('myClassName');
 
  log.emergency('emergency information');
+ log.emergency('emergency {0}', new List<String> { 'information' });
 ```
 
-### void notice(String message)
+### void notice(String message [, List<String> formattingArguments])
 
-Writes a `notice` log containing the provided message.
+Writes a `notice` log containing the provided message. If `formattingArguments` is provided then the first argument is treated as a pattern and the second argument for substitution and formatting in the same manner as `apex:outputText` and the Java `MessageFormat` class.
 
 ```apex
  ForceLog.Logger log = new ForceLog.Logger('myClassName');
 
  log.notice('notice information');
+ log.notice('notice {0}', new List<String> { 'information' });
 ```
 
-### void alert(String message)
+### void alert(String message [, List<String> formattingArguments])
 
-Writes a `alert` log containing the provided message.
+Writes a `alert` log containing the provided message. If `formattingArguments` is provided then the first argument is treated as a pattern and the second argument for substitution and formatting in the same manner as `apex:outputText` and the Java `MessageFormat` class.
 
 ```apex
  ForceLog.Logger log = new ForceLog.Logger('myClassName');

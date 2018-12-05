@@ -104,6 +104,16 @@ public with sharing class ForceLog {
         }
 
         /**
+         * @description Creates a formatted debug log containing the given message.
+         * @param {String} messageToFormat The debug message to format
+         * @param {String} formattingArguments The arguments to substitute into the message
+         * @return {void}
+         */
+        public void debug(String messageToFormat, List<String> formattingArguments) {
+            this.debug(String.format(messageToFormat, formattingArguments));
+        }
+
+        /**
          * @description Creates an info log containing
          * the given message.
          * @param {String} message The info message
@@ -111,6 +121,16 @@ public with sharing class ForceLog {
          */
         public void info(String message) {
             this.write(message, Level.INFO);
+        }
+
+        /**
+         * @description Creates a formatted info log containing the given message.
+         * @param {String} messageToFormat The info message to format
+         * @param {String} formattingArguments The arguments to substitute into the message
+         * @return {void}
+         */
+        public void info(String messageToFormat, List<String> formattingArguments) {
+            this.info(String.format(messageToFormat, formattingArguments));
         }
 
         /**
@@ -124,6 +144,16 @@ public with sharing class ForceLog {
         }
 
         /**
+         * @description Creates a formatted notice log containing the given message.
+         * @param {String} messageToFormat The notice message to format
+         * @param {String} formattingArguments The arguments to substitute into the message
+         * @return {void}
+         */
+        public void notice(String messageToFormat, List<String> formattingArguments) {
+            this.notice(String.format(messageToFormat, formattingArguments));
+        }
+
+        /**
          * @description Creates an alert log containing
          * the given message.
          * @param {String} message The alert message
@@ -131,6 +161,16 @@ public with sharing class ForceLog {
          */
         public void alert(String message) {
             this.write(message, Level.ALERT);
+        }
+
+        /**
+         * @description Creates a formatted alert log containing the given message.
+         * @param {String} messageToFormat The alert message to format
+         * @param {String} formattingArguments The arguments to substitute into the message
+         * @return {void}
+         */
+        public void alert(String messageToFormat, List<String> formattingArguments) {
+            this.alert(String.format(messageToFormat, formattingArguments));
         }
 
         /**
@@ -144,6 +184,16 @@ public with sharing class ForceLog {
         }
 
         /**
+         * @description Creates a formatted warning log containing the given message.
+         * @param {String} messageToFormat The warning message to format
+         * @param {String} formattingArguments The arguments to substitute into the message
+         * @return {void}
+         */
+        public void warning(String messageToFormat, List<String> formattingArguments) {
+            this.warning(String.format(messageToFormat, formattingArguments));
+        }
+
+        /**
          * @description Creates an error log containing
          * the given message.
          * @param {String} message The error message
@@ -151,6 +201,16 @@ public with sharing class ForceLog {
          */
         public void error(String message) {
             this.write(message, Level.ERR);
+        }
+
+        /**
+         * @description Creates a formatted error log containing the given message.
+         * @param {String} messageToFormat The error message to format
+         * @param {String} formattingArguments The arguments to substitute into the message
+         * @return {void}
+         */
+        public void error(String messageToFormat, List<String> formattingArguments) {
+            this.error(String.format(messageToFormat, formattingArguments));
         }
 
         /**
@@ -164,6 +224,16 @@ public with sharing class ForceLog {
         }
 
         /**
+         * @description Creates a formatted emergency log containing the given message.
+         * @param {String} messageToFormat The emergency message to format
+         * @param {String} formattingArguments The arguments to substitute into the message
+         * @return {void}
+         */
+        public void emergency(String messageToFormat, List<String> formattingArguments) {
+            this.emergency(String.format(messageToFormat, formattingArguments));
+        }
+
+        /**
          * @description Creates a critical log containing
          * the given message.
          * @param {String} message The critical message
@@ -171,6 +241,16 @@ public with sharing class ForceLog {
          */
         public void critical(String message) {
             this.write(message, Level.CRIT);
+        }
+
+        /**
+         * @description Creates a formatted critical log containing the given message.
+         * @param {String} messageToFormat The critical message to format
+         * @param {String} formattingArguments The arguments to substitute into the message
+         * @return {void}
+         */
+        public void critical(String messageToFormat, List<String> formattingArguments) {
+            this.critical(String.format(messageToFormat, formattingArguments));
         }
 
         /**

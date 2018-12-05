@@ -14,6 +14,18 @@ private class ForceLogTest {
     }
 
     @isTest
+    private static void itShouldProduceFormattedDebugLogs() {
+        TestLogger logger = new TestLogger('test');
+
+        logger.expect('level', 'debug');
+        logger.expect('message', 'testtest');
+        logger.expect('timestamp', '*');
+        logger.expect('name', 'test');
+
+        logger.debug('test{0}', new List<String> { 'test' });
+    }
+
+    @isTest
     private static void itShouldProduceInfoLogs() {
         TestLogger logger = new TestLogger('test');
 
@@ -23,6 +35,18 @@ private class ForceLogTest {
         logger.expect('name', 'test');
 
         logger.info('test');
+    }
+
+    @isTest
+    private static void itShouldProduceFormattedInfoLogs() {
+        TestLogger logger = new TestLogger('test');
+
+        logger.expect('level', 'info');
+        logger.expect('message', 'testtest');
+        logger.expect('timestamp', '*');
+        logger.expect('name', 'test');
+
+        logger.info('test{0}', new List<String> { 'test' });
     }
 
     @isTest
@@ -38,6 +62,18 @@ private class ForceLogTest {
     }
 
     @isTest
+    private static void itShouldProduceFormattedWarningLogs() {
+        TestLogger logger = new TestLogger('test');
+
+        logger.expect('level', 'warning');
+        logger.expect('message', 'testtest');
+        logger.expect('timestamp', '*');
+        logger.expect('name', 'test');
+
+        logger.warning('test{0}', new List<String> { 'test' });
+    }
+
+    @isTest
     private static void itShouldProduceErrorLogs() {
         TestLogger logger = new TestLogger('test');
 
@@ -47,6 +83,18 @@ private class ForceLogTest {
         logger.expect('name', 'test');
 
         logger.error('test');
+    }
+
+    @isTest
+    private static void itShouldProduceFormattedErrorLogs() {
+        TestLogger logger = new TestLogger('test');
+
+        logger.expect('level', 'err');
+        logger.expect('message', 'testtest');
+        logger.expect('timestamp', '*');
+        logger.expect('name', 'test');
+
+        logger.error('test{0}', new List<String> { 'test' });
     }
 
     @isTest
@@ -62,6 +110,18 @@ private class ForceLogTest {
     }
 
     @isTest
+    private static void itShouldProduceFormattedEmergencyLogs() {
+        TestLogger logger = new TestLogger('test');
+
+        logger.expect('level', 'emerg');
+        logger.expect('message', 'testtest');
+        logger.expect('timestamp', '*');
+        logger.expect('name', 'test');
+
+        logger.emergency('test{0}', new List<String> { 'test' });
+    }
+
+    @isTest
     private static void itShouldProduceAlertLogs() {
         TestLogger logger = new TestLogger('test');
 
@@ -71,6 +131,18 @@ private class ForceLogTest {
         logger.expect('name', 'test');
 
         logger.alert('test');
+    }
+
+    @isTest
+    private static void itShouldProduceFormattedAlertLogs() {
+        TestLogger logger = new TestLogger('test');
+
+        logger.expect('level', 'alert');
+        logger.expect('message', 'testtest');
+        logger.expect('timestamp', '*');
+        logger.expect('name', 'test');
+
+        logger.alert('test{0}', new List<String> { 'test' });
     }
 
     @isTest
@@ -86,6 +158,18 @@ private class ForceLogTest {
     }
 
     @isTest
+    private static void itShouldProduceFormattedCriticalLogs() {
+        TestLogger logger = new TestLogger('test');
+
+        logger.expect('level', 'crit');
+        logger.expect('message', 'testtest');
+        logger.expect('timestamp', '*');
+        logger.expect('name', 'test');
+
+        logger.critical('test{0}', new List<String> { 'test' });
+    }
+
+    @isTest
     private static void itShouldProduceNoticeLogs() {
         TestLogger logger = new TestLogger('test');
 
@@ -95,6 +179,18 @@ private class ForceLogTest {
         logger.expect('name', 'test');
 
         logger.notice('test');
+    }
+
+    @isTest
+    private static void itShouldProduceFormattedNoticeLogs() {
+        TestLogger logger = new TestLogger('test');
+
+        logger.expect('level', 'notice');
+        logger.expect('message', 'testtest');
+        logger.expect('timestamp', '*');
+        logger.expect('name', 'test');
+
+        logger.notice('test{0}', new List<String> { 'test' });
     }
 
     @isTest
