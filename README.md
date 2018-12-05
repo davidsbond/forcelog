@@ -394,6 +394,18 @@ Adds HTTP request data to the log. If no name is supplied it will add it in the 
  log.withRequest('my_request', req, new Set<String> { 'Content-Type' }).info('got request');
 ```
 
+### ForceLog.Logger withRequest([String name,] RestRequest req)
+
+Adds inbound HTTP request data from `RestContext` to the log. If no name is supplied it will add it in the `request` field.
+
+```apex
+ ForceLog.Logger log = new ForceLog.Logger('myClassName');
+ RestRequest req = new RestRequest();
+
+ log.withRequest(req).info('got request');
+ log.withRequest('my_request', req).info('got request');
+```
+
 ### ForceLog.Logger withResponse([String name,] HttpResponse res [, Set<String> excludeHeaders])
 
 Adds HTTP response data to the log. If no name is supplied it will add it in the `response` field. Headers can be excluded by specifying the headers to exclude using the `excludeHeaders` argument, e.g. if they contain credentials.
