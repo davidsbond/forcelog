@@ -537,6 +537,16 @@ public with sharing class ForceLog {
         }
 
         /**
+         * @description Adds the SOQL query from an instance of Database.QueryLocator to
+         * the log
+         * @param {Database.QueryLocator} ql The query locator
+         * @return {Logger} The current instance of the logger, for method chaining.
+         */ 
+        public Logger withQuery(Database.QueryLocator ql) {
+            return this.withField('query', ql.getQuery());
+        }
+
+        /**
          * @description Adds a single instance of Database.SaveResult to the log
          * @param {Database.SaveResult} res The database result to log
          * @return {Logger} The current instance of the logger, for method chaining.
