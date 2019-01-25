@@ -922,10 +922,6 @@ private class ForceLogTest {
     @isTest
     private static void itShouldAddAMergeResult() {
         TestLogger logger = new TestLogger('test');
-        logger.expect('level', 'info');
-        logger.expect('message', 'test');
-        logger.expect('timestamp', '*');
-        logger.expect('name', 'test');
         
         // Create two accounts to act as a duplicate
         List<Account> accounts = new List<Account> {
@@ -950,7 +946,25 @@ private class ForceLogTest {
             'type' => 'merge'
         });
 
-        logger.withResult(result).info('test');        
+        logger.withResult(result).info('test');   
+    }
+
+    private static void itShouldAddSOQLQueries() {
+        TestLogger logger = new TestLogger('test');
+        Database.QueryLocator ql = Database.getQueryLocator([
+            SELECT ID
+            FROM Contact
+            LIMIT 1
+        ]);
+
+        logger.expect('level', 'info');
+        logger.expect('message', 'test');
+        logger.expect('timestamp', '*');
+        logger.expect('name', 'test');
+
+        logger.expect('query', ql.getQuery());
+
+        logger.withQuery(ql).info('test');        
     }
 
     /**
