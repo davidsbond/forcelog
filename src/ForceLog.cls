@@ -772,7 +772,7 @@ public with sharing class ForceLog {
         public Logger withResults(String key, List<Database.MergeResult> results) {
             List<Object> entry = new List<Object>();
 
-            for (Database.SaveResult res : results) {
+            for (Database.MergeResult res : results) {
                 entry.add(new Map<String, Object>{
                     'id' => res.getId(),
                     'errors' => this.formatDatabaseErrors(res.getErrors()),
