@@ -883,6 +883,40 @@ private class ForceLogTest {
         logger.dispose();
     }
 
+    @isTest
+    private static void itShouldAddAMergeResult() {
+        TestLogger logger = new TestLogger('test');
+        logger.expect('level', 'info');
+        logger.expect('message', 'test');
+        logger.expect('timestamp', '*');
+        logger.expect('name', 'test');
+        
+        // Create two accounts to act as a duplicate
+        List<Account> accounts = new List<Account> {
+            new Account(Name='Test Account 1'),
+            new Account(Name='Test Account 2')
+        };
+
+        insert accounts;
+
+        // Create a contact to be related to a single account
+        Contact con = new Contact(FirstName='Test', LastName='McTest', AccountId=accounts.get(0).Id);
+        insert con;
+
+        Database.MergeResult result = Database.merge(accounts.get(1), accounts.get(2));
+
+        logger.expect('result', new Map<String, Object> {
+            'id' => res.getId(),
+            'errors' => new List<Object>(),
+            'success' => res.isSuccess(),
+            'merged_record_ids' => res.getMergedRecordIds(),
+            'updated_related_ids' => res.getUpdatedRelatedIds(),
+            'type' => 'merge'
+        });
+
+        logger.withResult(result).info('test');        
+    }
+
     /**
      * @description Basic exception for use in tests.
      */
