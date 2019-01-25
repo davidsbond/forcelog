@@ -883,6 +883,7 @@ private class ForceLogTest {
         logger.dispose();
     }
 
+    @isTest
     private static void itShouldAddMergeResults() {
         TestLogger logger = new TestLogger('test');
         logger.expect('level', 'info');
