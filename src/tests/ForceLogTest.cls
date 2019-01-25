@@ -906,11 +906,11 @@ private class ForceLogTest {
         Database.MergeResult result = Database.merge(accounts.get(1), accounts.get(2));
 
         logger.expect('result', new Map<String, Object> {
-            'id' => res.getId(),
+            'id' => result.getId(),
             'errors' => new List<Object>(),
-            'success' => res.isSuccess(),
-            'merged_record_ids' => res.getMergedRecordIds(),
-            'updated_related_ids' => res.getUpdatedRelatedIds(),
+            'success' => result.isSuccess(),
+            'merged_record_ids' => result.getMergedRecordIds(),
+            'updated_related_ids' => result.getUpdatedRelatedIds(),
             'type' => 'merge'
         });
 
