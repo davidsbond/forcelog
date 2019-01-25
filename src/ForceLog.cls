@@ -600,6 +600,15 @@ public with sharing class ForceLog {
         }
 
         /**
+         * @description Adds a single instance of Database.MergeResult to the log
+         * @param {Database.MergeResult} res The merge result to log
+         * @return {Logger} The current instance of the logger, for method chaining.
+         */
+        public Logger withResult(Database.MergeResult res) {
+            return this.withResult('result', res);
+        }
+
+        /**
          * @description Adds a single instance of Database.DeleteResult to the log under
          * a given key
          * @param {String} key The key where the save result will be nested in the log.
@@ -655,6 +664,26 @@ public with sharing class ForceLog {
         }
 
         /**
+         * @description Adds a single instance of Database.MergeResult to the log under
+         * a given key
+         * @param {String} key The key where the save result will be nested in the log.
+         * @param {Database.MergeResult} res The database result to log
+         * @return {Logger} The current instance of the logger, for method chaining.
+         */
+        public Logger withResult(String key, Database.MergeResult res) {
+            Map<String, Object> entry = new Map<String, Object>{
+                'id' => res.getId(),
+                'errors' => this.formatDatabaseErrors(res.getErrors()),
+                'success' => res.isSuccess(),
+                'merged_record_ids' => res.getMergedRecordIds(),
+                'updated_related_ids' => res.getUpdatedRelatedIds(),
+                'type' => 'merge'
+            };
+
+            return this.withField(key, entry);
+        }
+
+        /**
          * @description Adds a single instance of Messaging.SendEmailResult to the log
          * @param {String} key The key where the save result will be nested in the log.
          * @param {Messaging.SendEmailResult} res The email result to log
@@ -698,6 +727,15 @@ public with sharing class ForceLog {
         }
 
         /**
+         * @description Adds a list of Database.MergeResult to the log data.
+         * @param {List<Database.MergeResult>} results The database results to log
+         * @return {Logger} The current instance of the logger, for method chaining.
+         */
+        public Logger withResults(List<Database.MergeResult> results) {
+            return this.withResults('results', results);
+        }
+
+        /**
          * @description Adds a list of Messaging.SendEmailResult to the log data.
          * @param {List<Messaging.SendEmailResult>} results The email results to log
          * @return {Logger} The current instance of the logger, for method chaining.
@@ -720,6 +758,28 @@ public with sharing class ForceLog {
                     'success' => res.isSuccess(),
                     'errors' => this.formatDatabaseErrors(res.getErrors()),
                     'type' => 'save'
+                });           
+            }
+
+            return this.withField(key, entry);
+        }
+
+        /**
+         * @description Adds a list of Database.MergeResult to the log data.
+         * @param {List<Database.MergeResult>} results The database results to log
+         * @return {Logger} The current instance of the logger, for method chaining.
+         */
+        public Logger withResults(String key, List<Database.MergeResult> results) {
+            List<Object> entry = new List<Object>();
+
+            for (Database.SaveResult res : results) {
+                entry.add(new Map<String, Object>{
+                    'id' => res.getId(),
+                    'errors' => this.formatDatabaseErrors(res.getErrors()),
+                    'success' => res.isSuccess(),
+                    'merged_record_ids' => res.getMergedRecordIds(),
+                    'updated_related_ids' => res.getUpdatedRelatedIds(),
+                    'type' => 'merge'
                 });           
             }
 
