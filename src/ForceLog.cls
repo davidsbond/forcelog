@@ -546,6 +546,33 @@ public with sharing class ForceLog {
             return this.withField('query', ql.getQuery());
         }
 
+        /*
+         * @description Adds RestResponse data to the log.
+         * @param {RestResponse} res The RestResponse to log.
+         * @return {Logger} The current instance of the logger, for method chaining.
+         */
+        public Logger withResponse(RestResponse res) {
+            return withResponse('response', res);
+        }
+
+        /**
+         * @description Adds RestResponse data to the log using a defined field name.
+         * @param {String} name The field name.
+         * @param {RestResponse} req The RestResponse to log.
+         * @return {Logger} The current instance of the logger, for method chaining.
+         */
+        public Logger withResponse(String name, RestResponse res) {
+            Map<String, Object> responseFields = new Map<String, Object> {
+                'body' => res.responseBody.toString(),
+                'headers' => res.headers,
+                'status_code' => res.statusCode
+            };
+
+            this.fields.put(name, responseFields);
+
+            return this;
+        }
+
         /**
          * @description Adds a single instance of Database.SaveResult to the log
          * @param {Database.SaveResult} res The database result to log
@@ -570,6 +597,15 @@ public with sharing class ForceLog {
          * @return {Logger} The current instance of the logger, for method chaining.
          */
         public Logger withResult(Database.UpsertResult res) {
+            return this.withResult('result', res);
+        }
+
+        /**
+         * @description Adds a single instance of Messaging.SendEmailResult to the log
+         * @param {Messaging.SendEmailResult} res The email result to log
+         * @return {Logger} The current instance of the logger, for method chaining.
+         */
+        public Logger withResult(Messaging.SendEmailResult res) {
             return this.withResult('result', res);
         }
 
@@ -629,6 +665,22 @@ public with sharing class ForceLog {
         }
 
         /**
+         * @description Adds a single instance of Messaging.SendEmailResult to the log
+         * @param {String} key The key where the save result will be nested in the log.
+         * @param {Messaging.SendEmailResult} res The email result to log
+         * @return {Logger} The current instance of the logger, for method chaining.
+         */
+        public Logger withResult(String key, Messaging.SendEmailResult res) {
+            Map<String, Object> entry = new Map<String, Object>{
+                'success' => res.isSuccess(),
+                'errors' => this.formatEmailErrors(res.getErrors()),
+                'type' => 'send_email'
+            };
+
+            return this.withField(key, entry);
+        }
+
+        /**
          * @description Adds a list of Database.SaveResult to the log data.
          * @param {List<Database.SaveResult>} results The database results to log
          * @return {Logger} The current instance of the logger, for method chaining.
@@ -656,6 +708,15 @@ public with sharing class ForceLog {
         }
 
         /**
+         * @description Adds a list of Messaging.SendEmailResult to the log data.
+         * @param {List<Messaging.SendEmailResult>} results The email results to log
+         * @return {Logger} The current instance of the logger, for method chaining.
+         */
+        public Logger withResults(List<Messaging.SendEmailResult> results) {
+            return this.withResults('results', results);
+        }
+
+        /**
          * @description Adds a list of Database.SaveResult to the log data.
          * @param {List<Database.SaveResult>} results The database results to log
          * @return {Logger} The current instance of the logger, for method chaining.
@@ -664,7 +725,7 @@ public with sharing class ForceLog {
             List<Object> entry = new List<Object>();
 
             for (Database.SaveResult res : results) {
-                entry.Add(new Map<String, Object>{
+                entry.add(new Map<String, Object>{
                     'id' => res.getId(),
                     'success' => res.isSuccess(),
                     'errors' => this.formatDatabaseErrors(res.getErrors()),
@@ -686,7 +747,7 @@ public with sharing class ForceLog {
             List<Object> entry = new List<Object>();
 
             for (Database.UpsertResult res : results) {
-                entry.Add(new Map<String, Object>{
+                entry.add(new Map<String, Object>{
                     'id' => res.getId(),
                     'success' => res.isSuccess(),
                     'errors' => this.formatDatabaseErrors(res.getErrors()),
@@ -709,11 +770,32 @@ public with sharing class ForceLog {
             List<Object> entry = new List<Object>();
 
             for (Database.DeleteResult res : results) {
-                entry.Add(new Map<String, Object>{
+                entry.add(new Map<String, Object>{
                     'id' => res.getId(),
                     'success' => res.isSuccess(),
                     'errors' => this.formatDatabaseErrors(res.getErrors()),
                     'type' => 'delete'
+                });           
+            }
+
+            return this.withField(key, entry);
+        }
+
+        /**
+         * @description Adds a list of Messaging.SendEmailResult to the log data under
+         * a given key.
+         * @param {String} key The key to nest the result data.
+         * @param {List<Messaging.SendEmailResult>} results The email results to log
+         * @return {Logger} The current instance of the logger, for method chaining.
+         */
+        public Logger withResults(String key, List<Messaging.SendEmailResult> results) {
+            List<Object> entry = new List<Object>();
+
+            for (Messaging.SendEmailResult res : results) {
+                entry.Add(new Map<String, Object>{
+                    'success' => res.isSuccess(),
+                    'errors' => this.formatEmailErrors(res.getErrors()),
+                    'type' => 'send_email'
                 });           
             }
 
@@ -734,6 +816,27 @@ public with sharing class ForceLog {
                     'fields' => err.getFields(),
                     'message' => err.getMessage(),
                     'code' => err.getStatusCode()
+                });
+            }
+
+            return output;
+        }
+
+        /**
+         * @description Converts an instance of List<Messaging.SendEmailError> into a 
+         * list of objects that can be safely serialized.
+         * @param {List<Messaging.SendEmailError>} errs The errors to convert
+         * @return {List<Object>} The result of the conversion.
+         */
+        private List<Object> formatEmailErrors(List<Messaging.SendEmailError> errs) {
+            List<Object> output = new List<Object>();
+
+            for (Messaging.SendEmailError err : errs) {
+                output.add(new Map<String, Object> {
+                    'fields' => err.getFields(),
+                    'message' => err.getMessage(),
+                    'code' => err.getStatusCode(),
+                    'target_object_id' => err.getTargetObjectId()
                 });
             }
 
