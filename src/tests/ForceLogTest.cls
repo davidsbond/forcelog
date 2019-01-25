@@ -883,6 +883,24 @@ private class ForceLogTest {
         logger.dispose();
     }
 
+    @isTest
+    private static void itShouldAddSOQLQueries() {
+        TestLogger logger = new TestLogger('test');
+        Database.QueryLocator ql = Database.getQueryLocator([
+            SELECT ID
+            FROM Contact
+            LIMIT 1
+        ]);
+
+        logger.expect('level', 'info');
+        logger.expect('message', 'test');
+        logger.expect('timestamp', '*');
+        logger.expect('name', 'test');
+        logger.expect('query', ql.getQuery());
+
+        logger.withQuery(ql).info('test');        
+    }
+
     /**
      * @description Basic exception for use in tests.
      */
