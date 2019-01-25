@@ -429,6 +429,7 @@ private class ForceLogTest {
         );
 
         insert c;
+
         Database.DeleteResult result = Database.delete(c);
 
         logger.expect('level', 'info');
@@ -458,6 +459,7 @@ private class ForceLogTest {
         };
 
         insert contacts;
+
         List<Database.DeleteResult> results = Database.delete(contacts);
 
         logger.expect('level', 'info');
@@ -558,6 +560,57 @@ private class ForceLogTest {
         logger.expect('name', 'test');
 
         logger.withResult(result).info('test');        
+    }
+
+    @isTest
+    private static void itShouldAddSendEmailResult() {
+        TestLogger logger = new TestLogger('test');
+
+        Messaging.SingleEmailMessage message = new Messaging.SingleEmailMessage();
+        message.toAddresses = new String[] { 'abc1@example.com', 'abc2@example.com' };
+        message.subject = 'Subject Test Message';
+        message.plainTextBody = 'This is the message body.';
+
+        List<Messaging.SendEmailResult> results = Messaging.sendEmail(new List<Messaging.SingleEmailMessage> { message });
+        Messaging.SendEmailResult result = results[0];
+
+        logger.expect('level', 'info');
+        logger.expect('message', 'test');
+        logger.expect('result', new Map<String, Object> {
+            'success' => result.isSuccess(),
+            'errors' => new List<Object>(),
+            'type' => 'send_email'
+        });
+        logger.expect('timestamp', '*');
+        logger.expect('name', 'test');
+
+        logger.withResult(result).info('test');        
+    }
+
+    @isTest
+    private static void itShouldAddSendEmailResults() {
+        TestLogger logger = new TestLogger('test');
+
+        Messaging.SingleEmailMessage message = new Messaging.SingleEmailMessage();
+        message.toAddresses = new String[] { 'abc1@example.com', 'abc2@example.com' };
+        message.subject = 'Subject Test Message';
+        message.plainTextBody = 'This is the message body.';
+
+        List<Messaging.SendEmailResult> results = Messaging.sendEmail(new List<Messaging.SingleEmailMessage> { message });
+
+        logger.expect('level', 'info');
+        logger.expect('message', 'test');
+        logger.expect('results', new List<Object> {
+            new Map<String, Object> {
+                'success' => results.get(0).isSuccess(),
+                'errors' => new List<Object>(),
+                'type' => 'send_email'
+            }
+        });
+        logger.expect('timestamp', '*');
+        logger.expect('name', 'test');
+
+        logger.withResults(results).info('test');        
     }
 
     @isTest
@@ -688,7 +741,7 @@ private class ForceLogTest {
     }
 
     @isTest
-    private static void itShouldAddRestRequestDetailsWith() {
+    private static void itShouldAddRestRequestDetails() {
         TestLogger logger = new TestLogger('test');
 
         logger.expect('level', 'err');
@@ -741,6 +794,46 @@ private class ForceLogTest {
         req.requestURI = '/uri';
         
         logger.withRequest('test_request', req).error('test');
+    }
+
+    @isTest
+    private static void itShouldAddRestResponseDetails() {
+        TestLogger logger = new TestLogger('test');
+
+        logger.expect('level', 'err');
+        logger.expect('message', 'test');
+        logger.expect('response', new Map<String, Object> {
+            'body' => '{}',
+            'headers' => new Map<String, String> { 'X-Header' => 'test_header' },
+            'status_code' => 200
+        });
+
+        RestResponse res = new RestResponse();
+        res.responseBody = Blob.valueOf('{}');
+        res.headers.put('X-Header', 'test_header');
+        res.statusCode = 200;
+        
+        logger.withResponse(res).error('test');
+    }
+
+    @isTest
+    private static void itShouldAddRestRequestReponseWithAName() {
+        TestLogger logger = new TestLogger('test');
+
+        logger.expect('level', 'err');
+        logger.expect('message', 'test');
+        logger.expect('test_response', new Map<String, Object> {
+            'body' => '{}',
+            'headers' => new Map<String, String> { 'X-Header' => 'test_header' },
+            'status_code' => 200
+        });
+
+        RestResponse res = new RestResponse();
+        res.responseBody = Blob.valueOf('{}');
+        res.headers.put('X-Header', 'test_header');
+        res.statusCode = 200;
+        
+        logger.withResponse('test_response', res).error('test');
     }
 
     @isTest
