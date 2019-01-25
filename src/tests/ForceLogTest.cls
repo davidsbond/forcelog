@@ -884,6 +884,71 @@ private class ForceLogTest {
     }
 
     @isTest
+    private static void itShouldAddMergeResults() {
+        TestLogger logger = new TestLogger('test');
+        logger.expect('level', 'info');
+        logger.expect('message', 'test');
+        logger.expect('timestamp', '*');
+        logger.expect('name', 'test');
+        
+        // Create two accounts to act as a duplicate
+        List<Account> accounts = new List<Account> {
+            new Account(Name='Test Account 1'),
+            new Account(Name='Test Account 2')
+        };
+
+        insert accounts;
+
+        // Create a contact to be related to a single account
+        Contact con = new Contact(FirstName='Test', LastName='McTest', AccountId=accounts.get(0).Id);
+        insert con;
+
+        Database.MergeResult result = Database.merge(accounts.get(0), accounts.get(1));
+
+        logger.expect('results', new List<Map<String, Object>> {
+            new Map<String, Object> {
+                'id' => result.getId(),
+                'errors' => new List<Object>(),
+                'success' => result.isSuccess(),
+                'merged_record_ids' => result.getMergedRecordIds(),
+                'updated_related_ids' => result.getUpdatedRelatedIds(),
+                'type' => 'merge'
+            }
+        });
+
+        logger.withResults(new List<Database.MergeResult> { result }).info('test');         
+    }
+
+    @isTest
+    private static void itShouldAddAMergeResult() {
+        TestLogger logger = new TestLogger('test');
+        
+        // Create two accounts to act as a duplicate
+        List<Account> accounts = new List<Account> {
+            new Account(Name='Test Account 1'),
+            new Account(Name='Test Account 2')
+        };
+
+        insert accounts;
+
+        // Create a contact to be related to a single account
+        Contact con = new Contact(FirstName='Test', LastName='McTest', AccountId=accounts.get(0).Id);
+        insert con;
+
+        Database.MergeResult result = Database.merge(accounts.get(0), accounts.get(1));
+
+        logger.expect('result', new Map<String, Object> {
+            'id' => result.getId(),
+            'errors' => new List<Object>(),
+            'success' => result.isSuccess(),
+            'merged_record_ids' => result.getMergedRecordIds(),
+            'updated_related_ids' => result.getUpdatedRelatedIds(),
+            'type' => 'merge'
+        });
+
+        logger.withResult(result).info('test');   
+    }
+
     private static void itShouldAddSOQLQueries() {
         TestLogger logger = new TestLogger('test');
         Database.QueryLocator ql = Database.getQueryLocator([
@@ -896,6 +961,7 @@ private class ForceLogTest {
         logger.expect('message', 'test');
         logger.expect('timestamp', '*');
         logger.expect('name', 'test');
+
         logger.expect('query', ql.getQuery());
 
         logger.withQuery(ql).info('test');        
