@@ -862,6 +862,10 @@ public with sharing class ForceLog {
             List<Object> output = new List<Object>();
 
             for (Database.Error err : errs) {
+                if (err == null) {
+                    continue;
+                }
+
                 output.add(new Map<String, Object> {
                     'fields' => err.getFields(),
                     'message' => err.getMessage(),
