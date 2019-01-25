@@ -339,9 +339,9 @@ outputs all relevant fields for each type and includes all errors.
 ```
 
 
-### ForceLog.Logger withResults(String key, List<[Database.SaveResult, Database.UpsertResult, Database.DeleteResult]> results)
+### ForceLog.Logger withResults(String key, List<[Database.SaveResult, Database.UpsertResult, Database.DeleteResult, Messaging.SendEmailResult]> results)
 
-Adds a list of `Database.SaveResult`, `Database.UpsertResult` or `Database.DeleteResult` to the log. It
+Adds a list of `Database.SaveResult`, `Database.UpsertResult`, `Database.DeleteResult` or `Messaging.SendEmailResult` to the log. It
 outputs all relevant fields for each type and includes all errors. The results are nested under the
 provided key.
 
@@ -418,6 +418,18 @@ Adds HTTP response data to the log. If no name is supplied it will add it in the
  log.withResponse('my_response', res).info('got response');
  log.withResponse(res, new Set<String> { 'X-Token' }).info('got response');
  log.withResponse('my_response', res, new Set<String> { 'X-Token }).info('got response');
+```
+
+### ForceLog.Logger withResponse([String name,] RestResponse req)
+
+Adds outbound HTTP response data from `RestContext` to the log. If no name is supplied it will add it in the `request` field.
+
+```apex
+ ForceLog.Logger log = new ForceLog.Logger('myClassName');
+ RestResponse res = new RestResponse();
+
+ log.withResponse(res).info('got response');
+ log.withResponse('my_request', res).info('got response');
 ```
 
 ### void dispose()
