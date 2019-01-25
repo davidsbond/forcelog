@@ -461,7 +461,7 @@ public with sharing class ForceLog {
          */
         public Logger withRequest(String name, RestRequest req) {
             Map<String, Object> requestFields = new Map<String, Object> {
-                'body' => req.requestBody.toString(),
+                'body' => req.requestBody == null ? null : req.requestBody.toString(),
                 'headers' => req.headers,
                 'method' => req.httpMethod,
                 'params' => req.params,
@@ -553,7 +553,7 @@ public with sharing class ForceLog {
          */
         public Logger withResponse(String name, RestResponse res) {
             Map<String, Object> responseFields = new Map<String, Object> {
-                'body' => res.responseBody.toString(),
+                'body' => res.responseBody == null ? null : res.responseBody.toString(),
                 'headers' => res.headers,
                 'status_code' => res.statusCode
             };
