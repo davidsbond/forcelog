@@ -793,7 +793,7 @@ private class ForceLogTest {
     @isTest
     private static void itShouldAddSOQLQueries() {
         TestLogger logger = new TestLogger('test');
-        Database.QueryLocator ql = new Database.QueryLocator([
+        Database.QueryLocator ql = new Database.getQueryLocator([
             SELECT ID
             FROM Contact
             LIMIT 1
