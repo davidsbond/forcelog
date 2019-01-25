@@ -903,7 +903,7 @@ private class ForceLogTest {
         Contact con = new Contact(FirstName='Test', LastName='McTest', AccountId=accounts.get(0).Id);
         insert con;
 
-        Database.MergeResult result = Database.merge(accounts.get(1), accounts.get(2));
+        Database.MergeResult result = Database.merge(accounts.get(0), accounts.get(1));
 
         logger.expect('result', new Map<String, Object> {
             'id' => result.getId(),
