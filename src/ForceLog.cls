@@ -861,11 +861,14 @@ public with sharing class ForceLog {
         private List<Object> formatDatabaseErrors(List<Database.Error> errs) {
             List<Object> output = new List<Object>();
 
-            for (Database.Error err : errs) {
-                if (err == null) {
-                    continue;
-                }
+            // All the other Database.*Result classes return an empty list of
+            // errors. However, MergeResult returns null, so we need a null
+            // check here now.
+            if (errs == null) {
+                return output;
+            }
 
+            for (Database.Error err : errs) {
                 output.add(new Map<String, Object> {
                     'fields' => err.getFields(),
                     'message' => err.getMessage(),
