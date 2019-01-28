@@ -990,6 +990,7 @@ public with sharing class ForceLog {
          */
         public void dispose() {
             this.bulkFlush(this.logs);
+            this.logs.clear();
         }
 
         /**
