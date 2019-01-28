@@ -1043,6 +1043,6 @@ public with sharing class ForceLog {
          * @param {Map<String, Object>} log The log content
          * @return {void}
          */
-        void fire(Map<String,Object> log);
+        void fire(Map<String, Object> log);
     }
 }

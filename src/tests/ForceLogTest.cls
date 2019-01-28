@@ -967,6 +967,7 @@ private class ForceLogTest {
         logger.withQuery(ql).info('test');        
     }
 
+    @isTest
     private static void itShouldRegisterAndUseHooks() {
         TestLogger logger = new TestLogger('test');
         logger.addHook(new TestHook());
