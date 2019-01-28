@@ -967,6 +967,18 @@ private class ForceLogTest {
         logger.withQuery(ql).info('test');        
     }
 
+    private static void itShouldRegisterAndUseHooks() {
+        TestLogger logger = new TestLogger('test');
+        logger.addHook(new TestHook());
+
+        logger.expect('level', 'info');
+        logger.expect('message', 'test');
+        logger.expect('timestamp', '*');
+        logger.expect('name', 'test');
+        logger.expect('hook_field', '123');
+        logger.info('test');
+    }
+
     /**
      * @description Basic exception for use in tests.
      */
@@ -1026,6 +1038,12 @@ private class ForceLogTest {
 
                 System.assertEquals(expVal, actVal);
             }
+        }
+    }
+
+    private class TestHook implements ForceLog.Hook {
+        public void fire(Map<String, Object> log) {
+            log.put('hook_field', '123');
         }
     }
 

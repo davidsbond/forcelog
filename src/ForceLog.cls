@@ -76,6 +76,13 @@ public with sharing class ForceLog {
         private Map<String, Object> fields;
 
         /**
+         * @description The hooks registered for this logging
+         * instance.
+         * @type {List<Hook>}
+         */
+        private List<Hook> hooks;
+
+        /**
          * @description The name for this log, should be
          * a class or method name.
          * @type {String}
@@ -90,7 +97,17 @@ public with sharing class ForceLog {
          */
         public Logger(String name) {
             this.fields = new Map<String, Object>();
+            this.hooks = new List<Hook>();
             this.name = name;
+        }
+
+        /**
+         * @description Registers a hook with the logger
+         * @param {Hook} h The hook to register
+         * @return {void}
+         */
+        public void addHook(Hook h) {
+            this.hooks.add(h);
         }
 
         /**
@@ -931,6 +948,11 @@ public with sharing class ForceLog {
             // Add additional fields to log.
             log.putAll(this.fields);
 
+            // Fire all registered hooks
+            for (Hook h : this.hooks) {
+                h.fire(log);
+            }
+
             // Invoke log flushing implementation.
             this.flush(log);
 
@@ -1006,5 +1028,21 @@ public with sharing class ForceLog {
             'exception_type' => ex.getTypeName(),
             'exception_cause' => ex.getCause() != null ? getExceptionFields(ex.getCause()) : null
         };
+    }
+
+    /**
+     * @desription The Hook interface defines methods for modifying logs as they are created.
+     * This allows for creation of middlewares that can be used to customised logging output
+     * based on the content of the logs
+     * @interface
+     */
+    public interface Hook {
+        /**
+         * @description Method invoked on each log created, can be used to modify
+         * existing values
+         * @param {Map<String, Object>} log The log content
+         * @return {void}
+         */
+        void fire(Map<String,Object> log);
     }
 }
