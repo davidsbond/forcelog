@@ -68,7 +68,7 @@
     debug "^4.1.1"
     semver "^5.6.0"
 
-"@oclif/config@1.13.3", "@oclif/config@~1.13.2":
+"@oclif/config@1.13.3":
   version "1.13.3"
   resolved "https://registry.yarnpkg.com/@oclif/config/-/config-1.13.3.tgz#1b13e18d0e4242ddbd9cbd100f0eec819aa2bf8c"
   integrity sha512-qs5XvGRw+1M41abOKCjd0uoeHCgsMxa2MurD2g2K8CtQlzlMXl0rW5idVeimIg5208LLuxkfzQo8TKAhhRCWLg==
@@ -77,10 +77,10 @@
     debug "^4.1.1"
     tslib "^1.9.3"
 
-"@oclif/config@^1", "@oclif/config@^1.12.6", "@oclif/config@^1.12.8", "@oclif/config@^1.14.0", "@oclif/config@^1.6.22", "@oclif/config@^1.8.7", "@oclif/config@^1.9.0":
-  version "1.14.0"
-  resolved "https://registry.yarnpkg.com/@oclif/config/-/config-1.14.0.tgz#0af93facd5c5087f804489f1603c4f3bc0c45014"
-  integrity sha512-KsOP/mx9lzTah+EtGqLUXN3PDL0J3zb9/dTneFyiUK2K6T7vFEGhV6OasmqTh4uMZHGYTGrNPV8x/Yw6qZNL6A==
+"@oclif/config@^1", "@oclif/config@^1.12.6", "@oclif/config@^1.12.8", "@oclif/config@^1.14.0", "@oclif/config@^1.6.22", "@oclif/config@^1.8.7", "@oclif/config@^1.9.0", "@oclif/config@~1.15.1":
+  version "1.15.1"
+  resolved "https://registry.yarnpkg.com/@oclif/config/-/config-1.15.1.tgz#39950c70811ab82d75bb3cdb33679ed0a4c21c57"
+  integrity sha512-GdyHpEZuWlfU8GSaZoiywtfVBsPcfYn1KuSLT1JTfvZGpPG6vShcGr24YZ3HG2jXUFlIuAqDcYlTzOrqOdTPNQ==
   dependencies:
     "@oclif/errors" "^1.0.0"
     "@oclif/parser" "^3.8.0"
@@ -4882,10 +4882,10 @@ safe-regex@^1.1.0:
   resolved "https://registry.yarnpkg.com/safer-buffer/-/safer-buffer-2.1.2.tgz#44fa161b0187b9549dd84bb91802f9bd8385cd6a"
   integrity sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==
 
-salesforce-alm@48.8.0:
-  version "48.8.0"
-  resolved "https://registry.yarnpkg.com/salesforce-alm/-/salesforce-alm-48.8.0.tgz#7e56d3101a5413131000ed8ad7a0203e2f49274a"
-  integrity sha512-6J3Ahx7D5tmfugTApzPFrFa1Shcgt72uWvl89alQIBx9pgO0UudNKKdv8S1bXEbfVxz1wRpm7A3zqibKkqzqSA==
+salesforce-alm@48.10.0:
+  version "48.10.0"
+  resolved "https://registry.yarnpkg.com/salesforce-alm/-/salesforce-alm-48.10.0.tgz#f7a74670dd66e96692998b0af737716a72bccb7e"
+  integrity sha512-HBK60nLpRo8QOvxzXP83ATSxc//7b8ZwXHlWRdZYUnF6ThaYlc4eRSPjRsBCF2k3ZSuy4FkXqY01Z/JQ8FJUiQ==
   dependencies:
     "@oclif/config" "^1.14.0"
     "@oclif/errors" "^1.2.2"
@@ -4984,13 +4984,13 @@ salesforcedx-templates@48.8.0:
     yeoman-environment "^2.4.0"
     yeoman-generator "^4.0.1"
 
-salesforcedx@48.8.0:
-  version "48.8.0"
-  resolved "https://registry.yarnpkg.com/salesforcedx/-/salesforcedx-48.8.0.tgz#563ae1a613e03f4a0f33bc09d2a7dd6ba013ab6a"
-  integrity sha512-n2iDNiSGgwaiyxH7T14we3YEG0RrXfeH2Ue3SaMz3bmWUVEZIgnAuUW+4HZESdz+ZAOzi9O7QtfzNgaKAhLi7w==
+salesforcedx@48.10.1:
+  version "48.10.1"
+  resolved "https://registry.yarnpkg.com/salesforcedx/-/salesforcedx-48.10.1.tgz#31ee77dac981c75fee11539b3b95e228c89c62a9"
+  integrity sha512-JlCuDr2jDOxs6oC438mE+cM9XoD1afAwzK7by5UBP0as3FUtCY18rzkY5+JDjjYsA/laBa3UrLrUnAHb4tykUg==
   dependencies:
     "@salesforce/sfdx-plugin-lwc-test" "0.1.5"
-    salesforce-alm "48.8.0"
+    salesforce-alm "48.10.0"
     salesforce-lightning-cli "3.0.0"
     salesforcedx-templates "48.8.0"
 
@@ -5063,13 +5063,13 @@ set-value@^2.0.0, set-value@^2.0.1:
     is-plain-object "^2.0.3"
     split-string "^3.0.1"
 
-sfdx-cli@^7.15.0:
-  version "7.53.0"
-  resolved "https://registry.yarnpkg.com/sfdx-cli/-/sfdx-cli-7.53.0.tgz#dddafa3b6bef878224a908248dd3ecc970f2f38f"
-  integrity sha512-2Cq73A6YnFoHIOISOCE8p8cmy2rjMFFBEPARkOKtWMyVDhqKSG0ROGuJf/6Ketjo3uS5a2HQG4OD5UlVVDl9YQ==
+sfdx-cli@^7.54.4:
+  version "7.54.4"
+  resolved "https://registry.yarnpkg.com/sfdx-cli/-/sfdx-cli-7.54.4.tgz#84dad97fcb9884c12c180429b163c4d1789678b8"
+  integrity sha512-4p3xAi1ecgB/AOUOKwg73F5mDKxCH0aWfMfatZPjAbbfRAyMdO70Dll7WeutaCMcV5tBnsI4h6InmrTERmXuYw==
   dependencies:
     "@oclif/command" "~1.5.18"
-    "@oclif/config" "~1.13.2"
+    "@oclif/config" "~1.15.1"
     "@oclif/errors" "~1.2.2"
     "@oclif/plugin-autocomplete" "^0.1.5"
     "@oclif/plugin-commands" "~1.2.2"
@@ -5089,7 +5089,7 @@ sfdx-cli@^7.15.0:
     chalk "~2.4.2"
     debug "~3.2.6"
     http-call "~5.2.4"
-    salesforcedx "48.8.0"
+    salesforcedx "48.10.1"
     tslib "~1.10.0"
     v8-compile-cache "~2.0.3"
 
