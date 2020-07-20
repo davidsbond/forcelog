@@ -479,17 +479,16 @@
     fs-extra "7.0.1"
     tslib "1.10.0"
 
-"@salesforce/plugin-custom-metadata@1.0.4":
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/@salesforce/plugin-custom-metadata/-/plugin-custom-metadata-1.0.4.tgz#2a4695f342dd331dd6de16016ca137f91e8accf8"
-  integrity sha512-M8+OddrjcQ+Du8bkmi97wT1Yio7X0AYYIbk9Hqnmxr2HGmxK/xVi3SU91aI4DFxqN8LHMsmsnmGYHZTp4/fYMQ==
+"@salesforce/plugin-custom-metadata@^1.0.7":
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/@salesforce/plugin-custom-metadata/-/plugin-custom-metadata-1.0.7.tgz#e996a06bf1b6a46b7ad6b547269882c41fe035de"
+  integrity sha512-W3KK1HuF90VP8lBGoYABEGFLSMB+pS/9WeV2Oz7BEPUcT0CSN0ozeSd0Eow3serFYx/AOJz9K2dlyRZZFef6Ow==
   dependencies:
     "@oclif/command" "^1.6.1"
     "@oclif/config" "^1.15.1"
     "@oclif/errors" "^1.2.2"
     "@salesforce/command" "^3.0.0"
     "@salesforce/ts-types" "^1.2.2"
-    "@types/csvtojson" "^1.1.5"
     tslib "^2.0.0"
 
 "@salesforce/plugin-generator@~1.1.0":
@@ -644,13 +643,6 @@
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@types/color-name/-/color-name-1.1.1.tgz#1c1261bbeaa10a8055bbc5d8ab84b7b2afc846a0"
   integrity sha512-rr+OQyAjxze7GgWrSaJwydHStIhHq2lvY3BOC2Mj7KnzI7XK0Uw1TOOdI9lDoajEbSWLiYgoo4f1R51erQfhPQ==
-
-"@types/csvtojson@^1.1.5":
-  version "1.1.5"
-  resolved "https://registry.yarnpkg.com/@types/csvtojson/-/csvtojson-1.1.5.tgz#b1500849bd0a1ef58d93b03a61d889e2d40a912b"
-  integrity sha512-REZcfXN1h2JLoSc066GAdUKP2OpNiG3mIpgyjZWB5RKhBOZc5xmAZwavbP6O7vKMZ+jYTqbwUNucMBl7dw68JA==
-  dependencies:
-    "@types/node" "*"
 
 "@types/events@*":
   version "3.0.0"
@@ -5496,10 +5488,10 @@ safe-regex@^1.1.0:
   resolved "https://registry.yarnpkg.com/safer-buffer/-/safer-buffer-2.1.2.tgz#44fa161b0187b9549dd84bb91802f9bd8385cd6a"
   integrity sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==
 
-salesforce-alm@48.24.3:
-  version "48.24.3"
-  resolved "https://registry.yarnpkg.com/salesforce-alm/-/salesforce-alm-48.24.3.tgz#9ac2c62032789c0e88eb8c4afa834c56b5726091"
-  integrity sha512-vWweKXnoi7ReSCgVSOKiJrok2+ZIJh8wA03fsGaDpdCHM6iHGWTJVX1B3CZC+ga3Lj2QjI7PDgJVudVgyMj1qw==
+salesforce-alm@49.3.0:
+  version "49.3.0"
+  resolved "https://registry.yarnpkg.com/salesforce-alm/-/salesforce-alm-49.3.0.tgz#f1dd0a852e8eaf1ee5a87f76160dcef52c8fb21e"
+  integrity sha512-zaqZXpoS5L4KXNFTuNTcXjdi83S3TLdfi96C1F8taGFb36crgLm0X/B+tB7hmzIrulNQ8a+lFbdA1imUNwtYJA==
   dependencies:
     "@oclif/config" "^1.14.0"
     "@oclif/errors" "^1.2.2"
@@ -5582,10 +5574,10 @@ salesforce-lightning-cli@3.0.0:
     object-assign "^4.1.1"
     prettier "^1.18.2"
 
-salesforcedx-templates@48.18.0:
-  version "48.18.0"
-  resolved "https://registry.yarnpkg.com/salesforcedx-templates/-/salesforcedx-templates-48.18.0.tgz#e9f89bb8f9056516c23d4e8770fd11f69bb2b723"
-  integrity sha512-qFcdHJGEBTzXhyxV32AwANMRU+5Ux1G9e4BAUP1ozsQMeEgK/Mgg/rvDFRjMQdQVYMyl3LqVdhYMA3RsjxkG2Q==
+salesforcedx-templates@48.32.0:
+  version "48.32.0"
+  resolved "https://registry.yarnpkg.com/salesforcedx-templates/-/salesforcedx-templates-48.32.0.tgz#dc51b7217650e83cb941407064038f29d79348d0"
+  integrity sha512-NoV43oRExt0buEEtMyqb0XnYult6yZPC0FSEpYW/e7wzx9MQV1ngEGlJQi8mANAU/tA8OFeqNroTfdC8DEyaIA==
   dependencies:
     "@oclif/command" "^1"
     "@oclif/config" "^1"
@@ -5599,16 +5591,16 @@ salesforcedx-templates@48.18.0:
     yeoman-environment "2.4.0"
     yeoman-generator "4.0.1"
 
-salesforcedx@48.22.11:
-  version "48.22.11"
-  resolved "https://registry.yarnpkg.com/salesforcedx/-/salesforcedx-48.22.11.tgz#221c5a67b4ef1cbdeaf5b6236573936d80160b6d"
-  integrity sha512-CzpXbnducqWItvYniyGQI2r9XHuWlDAWH+Vq5L9PonmOQOP31ycEZuGPQiIUfirrZbB5m8lmIdq6uWB3ZkQpbw==
+salesforcedx@49.2.3:
+  version "49.2.3"
+  resolved "https://registry.yarnpkg.com/salesforcedx/-/salesforcedx-49.2.3.tgz#6b0d9063a4203c72eaeba8731a7fe14b81f8fa1c"
+  integrity sha512-5chZzn87O3RtJrACaVmgU48U9YrpNDnFT8t6rZJRtzgHFTyNyclEbZ2ZVobmY8iB/9ZsHfNiZFX+YlItRcqY9w==
   dependencies:
-    "@salesforce/plugin-custom-metadata" "1.0.4"
+    "@salesforce/plugin-custom-metadata" "^1.0.7"
     "@salesforce/sfdx-plugin-lwc-test" "0.1.7"
-    salesforce-alm "48.24.3"
+    salesforce-alm "49.3.0"
     salesforce-lightning-cli "3.0.0"
-    salesforcedx-templates "48.18.0"
+    salesforcedx-templates "48.32.0"
 
 samsam@1.3.0:
   version "1.3.0"
@@ -5684,10 +5676,10 @@ set-value@^2.0.0, set-value@^2.0.1:
     is-plain-object "^2.0.3"
     split-string "^3.0.1"
 
-sfdx-cli@^7.65.6:
-  version "7.65.6"
-  resolved "https://registry.yarnpkg.com/sfdx-cli/-/sfdx-cli-7.65.6.tgz#913174ded0cbf86cd3653fa3101348d98630ecdb"
-  integrity sha512-YMHfRDkCTSBOhnjgWFpKa85Q6ejS4ykyGDmC0XG3hSl3v1HJ9xvU/d+B9GTDZ2TSJTKrbVncAgYCCat/uk0j7g==
+sfdx-cli@^7.66.2:
+  version "7.66.2"
+  resolved "https://registry.yarnpkg.com/sfdx-cli/-/sfdx-cli-7.66.2.tgz#09953364b46d52ca6fca75cf87ba9e70ab917df1"
+  integrity sha512-9lZa7p9ty7Y9m/nNUz1SDhxM4mFrihHbW69z2MbohPLEY/T0RUOv7jzkK0cHipy2TIjP21m32d/mjaddpvHwMw==
   dependencies:
     "@oclif/command" "~1.6.0"
     "@oclif/config" "~1.15.1"
@@ -5710,7 +5702,7 @@ sfdx-cli@^7.65.6:
     chalk "~2.4.2"
     debug "~3.2.6"
     http-call "~5.2.4"
-    salesforcedx "48.22.11"
+    salesforcedx "49.2.3"
     tslib "~1.10.0"
     v8-compile-cache "~2.0.3"
 
