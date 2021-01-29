@@ -8,7 +8,7 @@
   "license": "MIT",
   "private": false,
   "devDependencies": {
-    "sfdx-cli": "^7.85.1"
+    "sfdx-cli": "^7.86.2"
   },
   "scripts": {
     "convert": "sfdx force:source:convert -d .sfdx/deployment -n ForceLog",
