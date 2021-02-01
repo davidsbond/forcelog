@@ -599,10 +599,10 @@
     chalk "^4.1.0"
     tslib "^1"
 
-"@salesforce/plugin-auth@1.4.6":
-  version "1.4.6"
-  resolved "https://registry.yarnpkg.com/@salesforce/plugin-auth/-/plugin-auth-1.4.6.tgz#6f038204fd4c9acb559f842240e37027cbef8a50"
-  integrity sha512-WpUS2MMoASOGTVQlb+hoNwaEBTpsd96K//lQQiNJooIxlVM9sJ849f371dKmH3GW7FZ1xX2+DRBczI141FPHkQ==
+"@salesforce/plugin-auth@1.4.7":
+  version "1.4.7"
+  resolved "https://registry.yarnpkg.com/@salesforce/plugin-auth/-/plugin-auth-1.4.7.tgz#2deaaa991ee9883e70218678fef2bd6eb9b82ee4"
+  integrity sha512-JmI+dK1f9tRC1zffeZjhdHauBEGOQYi1f9xr8WOnmoyR4VJL3iKZUXks51F1wehG72JY1c69xEGdwHQQcYbY9g==
   dependencies:
     "@oclif/config" "^1.17.0"
     "@salesforce/command" "^3.0.3"
@@ -5361,10 +5361,10 @@ setimmediate@~1.0.4:
   resolved "https://registry.yarnpkg.com/setimmediate/-/setimmediate-1.0.5.tgz#290cbb232e306942d7d7ea9b83732ab7856f8285"
   integrity sha1-KQy7Iy4waULX1+qbg3Mqt4VvgoU=
 
-sfdx-cli@^7.86.2:
-  version "7.86.2"
-  resolved "https://registry.yarnpkg.com/sfdx-cli/-/sfdx-cli-7.86.2.tgz#7ac370c9983881080c598092b36c19fe97bc87d2"
-  integrity sha512-hqrGqTVE1ABHwzPbZCiNYG8fmeabdHdHI4pMh5g6Iv7rAdO+IaNS+rOMKLZ5x2MsrMXZqPRw0lhBUgwW4Q1EXA==
+sfdx-cli@^7.86.3:
+  version "7.86.3"
+  resolved "https://registry.yarnpkg.com/sfdx-cli/-/sfdx-cli-7.86.3.tgz#5479c392b07ad5cd908e408550171a922980be97"
+  integrity sha512-62IhMuZsIrjUuomSFeqKDWE+WINO3d/1G0lFXd6xuw+tdPLOZCeOiwAX7kp8jJiVaazlH5E2We4Keghr3v1xmA==
   dependencies:
     "@oclif/command" "^1.6.0"
     "@oclif/config" "^1.15.1"
@@ -5381,7 +5381,7 @@ sfdx-cli@^7.86.2:
     "@salesforce/lazy-require" "^0.2.0"
     "@salesforce/plugin-alias" "1.1.5"
     "@salesforce/plugin-analytics" "^1.12.1"
-    "@salesforce/plugin-auth" "1.4.6"
+    "@salesforce/plugin-auth" "1.4.7"
     "@salesforce/plugin-config" "1.2.4"
     "@salesforce/plugin-generator" "^1.1.0"
     "@salesforce/plugin-telemetry" "1.0.1"
