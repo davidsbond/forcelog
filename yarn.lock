@@ -535,7 +535,7 @@
     mkdirp "1.0.4"
     sfdx-faye "^1.0.9"
 
-"@salesforce/core@^2.17.0", "@salesforce/core@^2.20.3", "@salesforce/core@^2.20.4", "@salesforce/core@^2.20.5":
+"@salesforce/core@^2.17.0", "@salesforce/core@^2.20.3", "@salesforce/core@^2.20.5":
   version "2.20.5"
   resolved "https://registry.yarnpkg.com/@salesforce/core/-/core-2.20.5.tgz#043d4aa6fb7ffc5270fc69fbec08aa1a52a2f2b7"
   integrity sha512-hB4o4TuOGJo01rLmx84nf6KFGizDqLo5bmQ8bFlMZw5xKeQaP1Jc74se6hj+6eI5Nx331EvbD+YHphsuLbaJjQ==
@@ -582,7 +582,7 @@
     template-lib "^1.1.2"
     tslib "^2"
 
-"@salesforce/kit@^1", "@salesforce/kit@^1.0.0", "@salesforce/kit@^1.2.0", "@salesforce/kit@^1.2.1", "@salesforce/kit@^1.2.2", "@salesforce/kit@^1.3.2", "@salesforce/kit@^1.3.3", "@salesforce/kit@^1.4.3", "@salesforce/kit@^1.4.5", "@salesforce/kit@^1.5.0", "@salesforce/kit@^1.5.13":
+"@salesforce/kit@^1", "@salesforce/kit@^1.0.0", "@salesforce/kit@^1.2.0", "@salesforce/kit@^1.2.1", "@salesforce/kit@^1.2.2", "@salesforce/kit@^1.3.2", "@salesforce/kit@^1.3.3", "@salesforce/kit@^1.4.3", "@salesforce/kit@^1.4.5", "@salesforce/kit@^1.5.0", "@salesforce/kit@^1.5.10", "@salesforce/kit@^1.5.13":
   version "1.5.14"
   resolved "https://registry.yarnpkg.com/@salesforce/kit/-/kit-1.5.14.tgz#013853ffc53e10e7add2abfa266372b29fda8317"
   integrity sha512-vGzNltfWo7wtaDR0Drgf3nAMWsJ5ZheM4LODfFZeorsFk4Xj8J6hPJWuMcYUT07yCenECQalOjT0SU3p77QgYA==
@@ -623,23 +623,23 @@
     chalk "^4.1.0"
     tslib "^1"
 
-"@salesforce/plugin-auth@1.6.1":
-  version "1.6.1"
-  resolved "https://registry.yarnpkg.com/@salesforce/plugin-auth/-/plugin-auth-1.6.1.tgz#2531bf777f492cc729cb74dad9706572f8d90df9"
-  integrity sha512-MJVpBdMZmYiXbPGXjTmNq5sHx7587saGywnVN7aQH+7nMXEQJrggeDn00BAOguU1rGGod+82P+YGb+rewzn7CA==
+"@salesforce/plugin-auth@1.7.0":
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/@salesforce/plugin-auth/-/plugin-auth-1.7.0.tgz#22896d44eaf6012b7b14cb932f8ea8c776a42f69"
+  integrity sha512-Ngh8lo5C/RI6x//LBOOfVXjQgZQ897D2dlwtAgAvTk3nQqWjBKYdG9a+iflSP9s1tyZFlOeLk9Wjf+Zwu6jlKw==
   dependencies:
     "@oclif/config" "^1.17.0"
-    "@salesforce/command" "^3.0.3"
-    "@salesforce/core" "^2.20.4"
-    "@salesforce/kit" "^1.3.3"
+    "@salesforce/command" "^3.1.3"
+    "@salesforce/core" "^2.23.4"
+    "@salesforce/kit" "^1.5.10"
     chalk "^4.1.0"
     open "^8.0.5"
     tslib "^2"
 
-"@salesforce/plugin-config@1.2.8":
-  version "1.2.8"
-  resolved "https://registry.yarnpkg.com/@salesforce/plugin-config/-/plugin-config-1.2.8.tgz#cc2030cb7e9e3292b10fb3d7321e2a34afded6d8"
-  integrity sha512-1VhcX5aeVss7Rs2g1V6OMmc8u6/z5FT6oA3euk0FjGHcoZwsihkEgOqF/BowYg/jpyt7sot/HH+XUu43gs6dDw==
+"@salesforce/plugin-config@1.2.9":
+  version "1.2.9"
+  resolved "https://registry.yarnpkg.com/@salesforce/plugin-config/-/plugin-config-1.2.9.tgz#0b1299aec6d185b76d5f88eee92a695a39bf50d5"
+  integrity sha512-/YXGBNKPC2RCqrUjfdEYLf7ZujRAQ7eYuQoyjqeTdAhRqHnPCpdZSSl2R35TPxK8+Ecs1H3a1Qbh4Evo7KP2uA==
   dependencies:
     "@oclif/config" "^1.17.0"
     "@salesforce/command" "^3.0.5"
@@ -5459,10 +5459,10 @@ setimmediate@~1.0.4:
   resolved "https://registry.yarnpkg.com/setimmediate/-/setimmediate-1.0.5.tgz#290cbb232e306942d7d7ea9b83732ab7856f8285"
   integrity sha1-KQy7Iy4waULX1+qbg3Mqt4VvgoU=
 
-sfdx-cli@^7.107.0:
-  version "7.107.0"
-  resolved "https://registry.yarnpkg.com/sfdx-cli/-/sfdx-cli-7.107.0.tgz#694f5b70578373f63eb953ea61706c329fd69888"
-  integrity sha512-sbejErTrVH/DnKyFfr+yFBnGsgCD5LVMRVG0Pa+T0o2ZJS3LDtTorUWj0m1PLCCR+u/PU4eI0sSBqTf+wbeSNQ==
+sfdx-cli@^7.108.0:
+  version "7.108.0"
+  resolved "https://registry.yarnpkg.com/sfdx-cli/-/sfdx-cli-7.108.0.tgz#a1014f069e1f4608fb570e751b9bbef6692a7e77"
+  integrity sha512-2BVnbq43KUTElZCqYobVcQKhh2u65bA1lFW7tp8y/whXCnBvDJ194bIUBVNnhjh95ULrUGFyckPO5umZYEXdjQ==
   dependencies:
     "@oclif/command" "^1.8.0"
     "@oclif/config" "^1.17.0"
@@ -5479,8 +5479,8 @@ sfdx-cli@^7.107.0:
     "@salesforce/lazy-require" "^0.4.0"
     "@salesforce/plugin-alias" "1.1.10"
     "@salesforce/plugin-apex" "0.2.2"
-    "@salesforce/plugin-auth" "1.6.1"
-    "@salesforce/plugin-config" "1.2.8"
+    "@salesforce/plugin-auth" "1.7.0"
+    "@salesforce/plugin-config" "1.2.9"
     "@salesforce/plugin-custom-metadata" "1.0.12"
     "@salesforce/plugin-data" "0.4.12"
     "@salesforce/plugin-generator" "^1.1.7"
