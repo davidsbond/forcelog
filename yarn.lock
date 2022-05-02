@@ -250,7 +250,7 @@
     supports-color "^5.4.0"
     tslib "^1"
 
-"@oclif/command@^1", "@oclif/command@^1.5.1", "@oclif/command@^1.5.10", "@oclif/command@^1.5.12", "@oclif/command@^1.5.13", "@oclif/command@^1.5.17", "@oclif/command@^1.5.19", "@oclif/command@^1.5.4", "@oclif/command@^1.6.0", "@oclif/command@^1.6.1", "@oclif/command@^1.7.0", "@oclif/command@^1.8.0", "@oclif/command@^1.8.1", "@oclif/command@^1.8.15":
+"@oclif/command@^1", "@oclif/command@^1.5.1", "@oclif/command@^1.5.10", "@oclif/command@^1.5.12", "@oclif/command@^1.5.13", "@oclif/command@^1.5.17", "@oclif/command@^1.5.19", "@oclif/command@^1.5.4", "@oclif/command@^1.6.0", "@oclif/command@^1.7.0", "@oclif/command@^1.8.0", "@oclif/command@^1.8.1", "@oclif/command@^1.8.15":
   version "1.8.16"
   resolved "https://registry.yarnpkg.com/@oclif/command/-/command-1.8.16.tgz#bea46f81b2061b47e1cda318a0b923e62ca4cc0c"
   integrity sha512-rmVKYEsKzurfRU0xJz+iHelbi1LGlihIWZ7Qvmb/CBz1EkhL7nOkW4SVXmG2dA5Ce0si2gr88i6q4eBOMRNJ1w==
@@ -283,7 +283,7 @@
     is-wsl "^2.1.1"
     tslib "^2.0.0"
 
-"@oclif/config@^1", "@oclif/config@^1.12.8", "@oclif/config@^1.13.0", "@oclif/config@^1.15.1", "@oclif/config@^1.16.0", "@oclif/config@^1.17.0", "@oclif/config@^1.18.1", "@oclif/config@^1.18.2", "@oclif/config@^1.18.3", "@oclif/config@^1.8.7":
+"@oclif/config@^1", "@oclif/config@^1.12.8", "@oclif/config@^1.13.0", "@oclif/config@^1.16.0", "@oclif/config@^1.17.0", "@oclif/config@^1.18.1", "@oclif/config@^1.18.2", "@oclif/config@^1.18.3", "@oclif/config@^1.8.7":
   version "1.18.3"
   resolved "https://registry.yarnpkg.com/@oclif/config/-/config-1.18.3.tgz#ddfc144fdab66b1658c2f1b3478fa7fbfd317e79"
   integrity sha512-sBpko86IrTscc39EvHUhL+c++81BVTsIZ3ETu/vG+cCdi0N6vb2DoahR67A9FI2CGnxRRHjnTfa3m6LulwNATA==
@@ -950,10 +950,10 @@
     chalk "^4.1.0"
     tslib "^1"
 
-"@salesforce/plugin-auth@2.0.1":
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/@salesforce/plugin-auth/-/plugin-auth-2.0.1.tgz#37f68ab819731d3259ef82f3bba343643094fc1c"
-  integrity sha512-hWC9EWI0ocDRsI7tV8RHpW0UdUMkQkre0F9HbZ2tBkAnPvh0Lp+yr9Q0WI/oYFNbDmPVw/FCpuNoNRLJ+sNa1g==
+"@salesforce/plugin-auth@2.0.2":
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/@salesforce/plugin-auth/-/plugin-auth-2.0.2.tgz#531489d71c40ad3a79aad21294faf5c597b4a90b"
+  integrity sha512-pe2ew/P1wkvGSFFYU8JStdGfLzGg2vWa3bG4cSwaJ8D+mupuhLZl5OQMnYLLTAXNwsyoh0V2DvhKAqkX+jq7gg==
   dependencies:
     "@oclif/core" "^1.5.2"
     "@salesforce/command" "^5.0.4"
@@ -984,17 +984,16 @@
     "@salesforce/core" "^2.31.0"
     tslib "^2"
 
-"@salesforce/plugin-custom-metadata@1.0.12":
-  version "1.0.12"
-  resolved "https://registry.yarnpkg.com/@salesforce/plugin-custom-metadata/-/plugin-custom-metadata-1.0.12.tgz#2f7aecc43d43efb1bd1bece5e7e0002ef9938916"
-  integrity sha512-f/I8rxmIuOMQtJ4SbWIvf+ui4Nak/of0jwxS90mNcG1Fvtu8vikYvaXzGA6sdiOVkMFrDhHHJkf0D416Bu/zBQ==
+"@salesforce/plugin-custom-metadata@1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@salesforce/plugin-custom-metadata/-/plugin-custom-metadata-1.1.0.tgz#5225d96dda9c78e1686bcb31b950cc91815cb4f8"
+  integrity sha512-mCkdL6DAL4nQX4/fSv+A5S8j/nSPpIIfGuto8NNDLhMTWJ7FUpRey7qf0S+6xlN7E7OSz7tKjlVVu7RQ23NATA==
   dependencies:
-    "@oclif/command" "^1.6.1"
-    "@oclif/config" "^1.15.1"
-    "@oclif/errors" "^1.2.2"
-    "@salesforce/command" "^3.0.0"
+    "@oclif/config" "^1.18.1"
+    "@salesforce/command" "^4.2.0"
+    "@salesforce/core" "^2.31.0"
     "@salesforce/ts-types" "^1.2.2"
-    tslib "^2.0.0"
+    tslib "^2"
 
 "@salesforce/plugin-data@0.6.13":
   version "0.6.13"
@@ -7366,10 +7365,10 @@ setprototypeof@1.2.0:
   resolved "https://registry.yarnpkg.com/setprototypeof/-/setprototypeof-1.2.0.tgz#66c9a24a73f9fc28cbe66b09fed3d33dcaf1b424"
   integrity sha512-E5LDX7Wrp85Kil5bhZv46j8jOeboKq5JMmYM3gVGdGH8xFpPWXUMsNrlODCrkoxMEeNi/XZIwuRvY4XNwYMJpw==
 
-sfdx-cli@^7.147.1:
-  version "7.147.1"
-  resolved "https://registry.yarnpkg.com/sfdx-cli/-/sfdx-cli-7.147.1.tgz#208ae970315c7bc0942b576e5577d4578b3048f3"
-  integrity sha512-uUP6TjzY/Eyy/YLxpeHQV9fptXoOqTrV8j1VDSUEnSWhD/Jou2ndAE8H2DVP0v6PWljn5YBXBV3HK1F5IZRRlA==
+sfdx-cli@^7.148.3:
+  version "7.148.3"
+  resolved "https://registry.yarnpkg.com/sfdx-cli/-/sfdx-cli-7.148.3.tgz#1d56277822eb005513196d8ac6a0fd8b81d1fe2f"
+  integrity sha512-18Du24B4jY3nD4InywGajci5fxbHXl7ZzhhFRWGSbySWcpa6hCSbDdJ7J3ponOtYG7bLdDKo91+ft3396QWvVQ==
   dependencies:
     "@oclif/command" "^1.8.0"
     "@oclif/config" "^1.17.0"
@@ -7386,10 +7385,10 @@ sfdx-cli@^7.147.1:
     "@salesforce/lazy-require" "^0.4.0"
     "@salesforce/plugin-alias" "2.0.0"
     "@salesforce/plugin-apex" "0.11.0"
-    "@salesforce/plugin-auth" "2.0.1"
+    "@salesforce/plugin-auth" "2.0.2"
     "@salesforce/plugin-community" "1.1.4"
     "@salesforce/plugin-config" "1.3.30"
-    "@salesforce/plugin-custom-metadata" "1.0.12"
+    "@salesforce/plugin-custom-metadata" "1.1.0"
     "@salesforce/plugin-data" "0.6.13"
     "@salesforce/plugin-generator" "1.2.2"
     "@salesforce/plugin-info" "2.0.0"
